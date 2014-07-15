@@ -10,6 +10,13 @@ gem 'mysql2'
 # Use unicorn as the app server
 gem 'unicorn'
 
+# Annotate databse models
+gem 'annotate'
+
 group :development, :test do
+  # Test framework
   gem 'rspec-rails'
+
+  # A better IRB with interactive debugging
+  gem 'pry-rails'
 end
