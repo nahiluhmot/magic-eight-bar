@@ -10,4 +10,8 @@
 
 class User < ActiveRecord::Base
   validates :session, length: { is: 32 }, uniqueness: true
+
+  def attributes
+    super.tap { |hash| %w(created_at updated_at).each { |k| hash.delete(k) } }
+  end
 end
