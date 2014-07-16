@@ -6,6 +6,8 @@ require 'hashie'
 module PlacesAPI
   module_function
 
+  require 'places_api/middleware'
+
   # By default, read the api_key from the $GOOGLE_PLACES_API_KEY environment
   # variable.
   def api_key
