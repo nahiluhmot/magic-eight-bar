@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe PlacesAPI::Middleware::JSON do
-  subject do
+  subject {
     Excon.new(
       'http://example.com',
       middlewares: [PlacesAPI::Middleware::JSON] + Excon.defaults[:middlewares],
       mock: true
     )
-  end
+  }
 
   after { Excon.stubs.clear }
 
