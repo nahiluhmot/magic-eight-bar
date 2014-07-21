@@ -2,6 +2,9 @@
 class PlacesAPI::API
   attr_reader :api_key
 
+  # This error is raised when a request fails.
+  RequestError = Class.new(StandardError)
+
   # These middlewares are used in the excon connection.
   MIDDLEWARES = [
     PlacesAPI::Middleware::Domain,
@@ -17,7 +20,9 @@ class PlacesAPI::API
   # Make a request to the API.
   def request(params = {}, &block)
     (params[:query] ||= {}).merge!(key: api_key)
-    connection.request(params, &block)
+    unpaginate(params, &block)
+  rescue Excon::Errors::Error => ex
+    raise RequestError, ex.message
   end
 
   # A HTTP connection to the server.
@@ -25,6 +30,20 @@ class PlacesAPI::API
     @connection ||=
       Excon.new('https://maps.googleapis.com', middlewares: MIDDLEWARES)
   end
+
+  def unpaginate(params, &block)
+    return enum_for(:unpaginate, params) if block.nil?
+
+    response = connection.request(params).body
+    response['results'].each(&block) unless response['results'].nil?
+    block.call(response['result']) unless response['result'].nil?
+
+    if token = response['next_page_token']
+      new_params = params.merge(query: { pagetoken: token })
+      unpaginate(new_params).each { |val| block.call(val) }
+    end
+  end
+  private :unpaginate
 
   # These class methods are inheirited as well as the instance methods.
   class << self

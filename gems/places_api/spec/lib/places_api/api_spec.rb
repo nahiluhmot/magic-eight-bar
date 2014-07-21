@@ -11,13 +11,17 @@ describe PlacesAPI::API do
   end
 
   describe '#request' do
-    let(:params) { { method: 'post', path: 'yolo' } }
-    let(:expected) { params.merge(query: { key: api_key }) }
+    context 'when no errors occur' do
+      let(:params) { { method: 'post', path: 'yolo' } }
+      let(:expected) { params.merge(query: { key: api_key }) }
+      let(:body) { 'lol-my-test-body' }
+      let(:result) { double(body: body) }
 
-    it 'sets the API key in addition to other parameters' do
-      expect(subject.connection).to receive(:request).with(expected)
+      it 'sets the API key in addition to other parameters' do
+        expect(subject.connection).to receive(:request).with(expected) { result }
 
-      subject.request(params)
+        expect(subject.request(params)).to eq(body)
+      end
     end
   end
 

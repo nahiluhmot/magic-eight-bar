@@ -2,7 +2,9 @@
 class PlacesAPI::Middleware::JSON < Excon::Middleware::Base
   # When the 'Content-Type' is 'application/json', turn the body into JSON.
   def request_call(datum)
-    when_json(datum) { datum[:body] = datum[:body].to_json }
+    when_json(datum) do
+      datum[:body] = datum[:body].to_json
+    end
 
     @stack.request_call(datum)
   end
@@ -10,21 +12,25 @@ class PlacesAPI::Middleware::JSON < Excon::Middleware::Base
   # When the 'Content-Type' is 'application/json', turn the body into a Mash or
   # a list of Mashes.
   def response_call(datum)
+    @stack.response_call(datum)
+
     when_json(datum[:response]) do
       datum[:response][:body] = mashify(::JSON.parse(datum[:response][:body]))
     end
 
-    @stack.response_call(datum)
+    datum
   end
 
   private
 
   def when_json(datum, &block)
-    if datum.has_key?(:headers)
-      if datum[:headers].has_key?('Content-Type')
-        if datum[:headers]['Content-Type'].start_with?('application/json')
-          if !datum[:body].nil?
-            block.call(datum)
+    if datum
+      if datum.has_key?(:headers)
+        if datum[:headers].has_key?('Content-Type')
+          if datum[:headers]['Content-Type'].start_with?('application/json')
+            if !datum[:body].nil?
+              block.call(datum)
+            end
           end
         end
       end

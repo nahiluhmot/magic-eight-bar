@@ -8,4 +8,6 @@ module PlacesAPI
 
   require 'places_api/middleware'
   require 'places_api/api'
+  require 'places_api/search'
+  require 'places_api/client'
 end
