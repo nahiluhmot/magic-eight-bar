@@ -13,6 +13,8 @@ gem 'unicorn'
 # Annotate databse models
 gem 'annotate'
 
+gem 'places_api', path: 'gems/places_api'
+
 group :development, :test do
   # Test framework
   gem 'rspec-rails'
