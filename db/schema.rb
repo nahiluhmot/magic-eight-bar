@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140722180726) do
+ActiveRecord::Schema.define(version: 20140722191426) do
 
   create_table "bars", force: true do |t|
     t.string   "name",       limit: 120, null: false
@@ -26,5 +26,7 @@ ActiveRecord::Schema.define(version: 20140722180726) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["session"], name: "index_users_on_session", unique: true, using: :btree
 
 end
