@@ -20,7 +20,8 @@ class PlacesAPI::API
   # Make a request to the API.
   def request(params = {}, &block)
     (params[:query] ||= {}).merge!(key: api_key)
-    unpaginate(params, &block)
+    params[:expects] = (200..204)
+    unpaginate(params)
   rescue Excon::Errors::Error => ex
     raise RequestError, ex.message
   end
@@ -48,11 +49,11 @@ class PlacesAPI::API
   # These class methods are inheirited as well as the instance methods.
   class << self
     # Define a request.
-    def request(options = {})
+    def request(options = {}, &block)
       method, required, path, name =
         options.values_at(:method, :required, :path, :name)
       required = [*required]
-      define_method(name) do |*args, &block|
+      define_method(name) do |*args|
         opts = args.last.is_a?(Hash) ? args.pop : {}
         unless required.length == args.length
           raise ArgumentError,

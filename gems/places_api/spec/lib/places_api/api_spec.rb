@@ -13,14 +13,14 @@ describe PlacesAPI::API do
   describe '#request' do
     context 'when no errors occur' do
       let(:params) { { method: 'post', path: 'yolo' } }
-      let(:expected) { params.merge(query: { key: api_key }) }
-      let(:body) { 'lol-my-test-body' }
+      let(:expected) { params.merge(query: { key: api_key }, expects: (200..204)) }
+      let(:body) { { 'result' => 'lol-my-test-body' } }
       let(:result) { double(body: body) }
 
       it 'sets the API key in addition to other parameters' do
         expect(subject.connection).to receive(:request).with(expected) { result }
 
-        expect(subject.request(params)).to eq(body)
+        expect(subject.request(params).first).to eq(body['result'])
       end
     end
   end
@@ -68,12 +68,6 @@ describe PlacesAPI::API do
         expect(subject).to receive(:request).with(expected)
 
         subject.my_method(name, email, options)
-      end
-
-      it 'calls the block if given' do
-        expect(subject).to receive(:request) { 1 }
-
-        expect(subject.my_method(name, email, options, &:succ)).to eq(2)
       end
     end
   end
