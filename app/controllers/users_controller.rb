@@ -5,8 +5,8 @@ class UsersController < ApplicationController
     logger.debug('Listing all users')
     render status: 200, json: UsersService.all_users.to_json
   rescue => ex
-    logger.error("Could not create user due to #{ex.class}:#{ex.message}")
-    render status: 500
+    logger.error("Could not find users user due to #{ex.class}:#{ex.message}")
+    render status: 500, body: nil
   end
 
   # Create a new user.
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     render status: 201, json: user.to_json
   rescue => ex
     logger.error("Could not create user due to #{ex.class}:#{ex.message}")
-    render status: 500
+    render status: 500, body: nil
   end
 
   # Get the currently authenticated user.
@@ -32,5 +32,4 @@ class UsersController < ApplicationController
       render status: 200, json: user.to_json
     end
   end
-
 end
