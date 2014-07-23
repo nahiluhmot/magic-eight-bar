@@ -19,13 +19,25 @@ class Review < ActiveRecord::Base
 
   validate do |review|
     if review.rating.nil?
-      review.errors[:rating] << 'No rating was given'
+      review.errors[:rating] << 'not given'
     elsif (review.rating < -1) || (review.rating > 1)
-      review.errors[:rating] << "Invalid rating: #{review.rating}"
+      review.errors[:rating] << "invalid: #{review.rating}"
+    end
+
+    if review.user_id.nil?
+      review.errors[:user] << 'not given'
+    elsif review.bar.nil?
+      review.errors[:bar] << 'not given'
+    elsif review.duplicate_exists?
+      review.errors[:review] << "exists for User #{user.id}, Bar #{bar.id}"
     end
   end
 
   def attributes
     super.tap { |hash| %w(created_at updated_at).each { |k| hash.delete(k) } }
+  end
+
+  def duplicate_exists?
+    id.nil? && Review.exists?(user_id: user_id, bar_id: bar_id)
   end
 end

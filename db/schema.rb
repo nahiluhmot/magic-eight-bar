@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140722213753) do
+ActiveRecord::Schema.define(version: 20140723143842) do
 
   create_table "bars", force: true do |t|
     t.string   "name",       limit: 120, null: false
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20140722213753) do
   end
 
   add_index "reviews", ["bar_id"], name: "index_reviews_on_bar_id", using: :btree
+  add_index "reviews", ["user_id", "bar_id"], name: "index_reviews_on_user_id_and_bar_id", unique: true, using: :btree
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
