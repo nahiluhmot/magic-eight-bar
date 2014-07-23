@@ -41,4 +41,24 @@ describe User, type: :model do
       end
     end
   end
+
+  describe '#reviews' do
+    subject! { User.create!(session: 32.times.map { rand(10) }.join) }
+    let!(:bar) {
+      Bar.create!(
+        name: "The Bar",
+        address: "4234 A Place, Boston, MA",
+        place_id: 27.times.map { rand(10) }.join
+      )
+    }
+    let!(:review) {
+      Review.create!(user_id: subject['id'], bar_id: bar['id'], rating: 1)
+    }
+
+    after { [subject, bar, review].map(&:destroy) }
+
+    it 'returns all of the reviews for the given bar' do
+      expect(subject.reviews).to eq([review])
+    end
+  end
 end

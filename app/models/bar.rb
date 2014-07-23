@@ -15,6 +15,8 @@ class Bar < ActiveRecord::Base
   validates :place_id, uniqueness: true, presence: true
   validates :address, length: 1..120
 
+  has_many :reviews
+
   def attributes
     super.tap { |hash| %w(created_at updated_at).each { |k| hash.delete(k) } }
   end
