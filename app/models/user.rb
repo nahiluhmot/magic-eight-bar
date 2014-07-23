@@ -9,10 +9,8 @@
 #
 
 class User < ActiveRecord::Base
+  include MashAttributes
+
   validates :session, length: { is: 32 }, uniqueness: true
   has_many :reviews
-
-  def attributes
-    super.tap { |hash| %w(created_at updated_at).each { |k| hash.delete(k) } }
-  end
 end

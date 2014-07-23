@@ -11,6 +11,8 @@
 #
 
 class Review < ActiveRecord::Base
+  include MashAttributes
+
   belongs_to :user
   belongs_to :bar
 
@@ -31,10 +33,6 @@ class Review < ActiveRecord::Base
     elsif review.duplicate_exists?
       review.errors[:review] << "exists for User #{user.id}, Bar #{bar.id}"
     end
-  end
-
-  def attributes
-    super.tap { |hash| %w(created_at updated_at).each { |k| hash.delete(k) } }
   end
 
   def duplicate_exists?
