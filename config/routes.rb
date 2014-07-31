@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   scope '/api' do
-    resources :users, only: [:index, :create, :show]
-    resources :bars
+    resources :users, except: [:update, :destroy]
+    resources :bars, except: [:update]
+    resources :reviews
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
