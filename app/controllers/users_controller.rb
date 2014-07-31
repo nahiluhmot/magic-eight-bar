@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     render status: 201, json: user.to_json
   rescue => ex
     logger.error("Could not create user due to #{ex.class}:#{ex.message}")
-    render status: 500, body: nil
+    render status: 500, body: 'Internal error creating user'
   end
 
   # Get the currently authenticated user.
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     logger.debug("Looking up user with session: #{params[:id]}")
     if (user = UsersService.get_user(params[:id])).nil?
       logger.error("No user found for #{params[:id]}")
-      render status: 404, body: nil
+      render status: 404, body: "No such user: #{params[:id]}"
     else
       logger.info("Found user for session #{params[:id]}: #{user}")
       render status: 200, json: user.to_json
