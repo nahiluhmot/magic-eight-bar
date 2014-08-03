@@ -10,7 +10,7 @@ Views.Contact = React.createClass({
 
   render: function() {
     return (
-      <div className="container top-level">
+      <div className="container top-level fix-margin">
         <h1>Contact</h1>
 
         <p className="lead">

@@ -5,7 +5,9 @@ var Views = Views || {};
 Views.Results = React.createClass({
   render: function() {
     return (
-      <h1>Results</h1>
+      <div className="fix-margin">
+        <h1>Results</h1>
+      </div>
     );
   }
 });

@@ -117,6 +117,32 @@ Views.Search = React.createClass({
     );
   },
 
+  displayAllUnselected: function() {
+    if(this.state.filteredBars.length > 0) {
+      return (
+        <div>
+          <h2>Matched Bars:</h2>
+          <ul className="list-unstyled">
+            {this.state.filteredBars.map(this.displayUnselected)}
+          </ul>
+        </div>
+      );
+    }
+  },
+
+  displayAllSelected: function() {
+    if(this.state.selectedBars.length > 0) {
+      return (
+        <div>
+          <h2>Selected Bars:</h2>
+          <ul className="list-unstyled">
+            {this.state.selectedBars.map(this.displaySelected)}
+          </ul>
+        </div>
+      );
+    }
+  },
+
   render: function() {
     return (
       <div className="container-fluid">
@@ -136,17 +162,11 @@ Views.Search = React.createClass({
 
         <div className="row">
           <div className="col-lg-6">
-            <h2>Matched Bars</h2>
-            <ul className="list-unstyled">
-              {this.state.filteredBars.map(this.displayUnselected)}
-            </ul>
+            {this.displayAllUnselected()}
           </div>
 
           <div className="col-lg-6 text-right">
-            <h2>Selected Bars</h2>
-            <ul className="list-unstyled">
-              {this.state.selectedBars.map(this.displaySelected)}
-            </ul>
+            {this.displayAllSelected()}
           </div>
         </div>
       </div>
