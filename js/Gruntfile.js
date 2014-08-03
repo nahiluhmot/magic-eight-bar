@@ -11,7 +11,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     copy: {
-      react: {
+      reactSources: {
         files: [
           {
             expand: true,
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
           {
             expand: true,
             cwd: 'bower_components/bootstrap/dist/css',
-            src: '*.css',
+            src: ['*.css', '*.css.map'],
             dest: 'public/css/'
           }
         ]

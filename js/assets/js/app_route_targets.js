@@ -10,7 +10,7 @@ AppRouteTargets.prototype = {
   },
 
   'contact': function (request, options) {
-    this.mount('Contact', Views.Home());
+    this.mount('Contact', Views.Contact());
   },
 
   'legal': function (request, options) {

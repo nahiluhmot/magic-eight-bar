@@ -24,13 +24,13 @@ Views.Nav = React.createClass({
   renderKey: function(key) {
     if (this.props.active == key) {
       return (
-        <li className="active">
+        <li key={key} className="active">
           <a href={Tabs[key]} onClick={this.handleClick(key)}>{key}</a>
         </li>
       );
     } else {
       return (
-        <li>
+        <li key={key}>
           <a href={Tabs[key]} onClick={this.handleClick(key)}>{key}</a>
         </li>
       );
@@ -42,16 +42,10 @@ Views.Nav = React.createClass({
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
             <a className="navbar-brand" href="/" onClick={this.handleClick('Home')}>Magic Eight Bar</a>
           </div>
 
-          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
               {Object.keys(Tabs).map(this.renderKey)}
             </ul>
