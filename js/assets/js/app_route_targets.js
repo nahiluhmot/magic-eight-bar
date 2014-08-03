@@ -14,7 +14,7 @@ AppRouteTargets.prototype = {
   },
 
   'legal': function(request, options) {
-    this.mount('Legal', Views.Home());
+    this.mount('Legal', Views.Legal());
   },
 
   'results': function(request, options) {

@@ -6,7 +6,7 @@ Views.Home = React.createClass({
   render: function() {
     return (
       <div className="container-fluid">
-        <div className="jumbotron fix-margin">
+        <div className="jumbotron text-center fix-margin">
           <h1>Drink, don't think.</h1>
 
           <p className="lead">
