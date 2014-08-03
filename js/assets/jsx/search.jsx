@@ -11,11 +11,23 @@ Views.Search = React.createClass({
     return [
       {
         name: "Yard House",
+        site: "http://www.yardhouse.com",
+        placeId: "1"
       },
       {
         name: "Bar Loiue",
+        site: "http://www.barlouieamerica.com/",
+        placeId: "2"
       },
     ];
+  },
+
+  isSelected: function(bar) {
+    var foundBars = this.state.selectedBars.filter(function(current) {
+      return current.name === bar.name;
+    });
+
+    return foundBars.length > 0;
   },
 
   addBar: function(bar) {
@@ -40,37 +52,42 @@ Views.Search = React.createClass({
     var component = this;
 
     return function(e) {
-      if(bar.name.toLowerCase().search(component.state.filter) === -1) {
-        component.setState({
-          filteredBars: component.state.filteredBars,
-          selectedBars: component.state.selectedBars.filter(function (thisBar) {
-            return thisBar !== bar;
-          })
-        });
-      } else {
-        var filtered = component.state.filteredBars;
+      var filtered = component.state.filteredBars;
+
+      if(bar.name.toLowerCase().search(component.state.filter) !== -1) {
         filtered.unshift(bar);
-        component.setState({
-          filteredBars: filtered,
-          selectedBars: component.state.selectedBars.filter(function (thisBar) {
-            return thisBar !== bar;
-          })
-        });
       }
+
+      component.setState({
+        filteredBars: filtered,
+        selectedBars: component.state.selectedBars.filter(function(thisBar) {
+          return thisBar.name !== bar.name;
+        })
+      });
 
       e.preventDefault();
     };
   },
 
   handleSubmit: function(e) {
+    var places = this.state.selectedBars.map(function(bar) {
+      return bar.placeId;
+    });
+    e.preventDefault();
+
+    if(places.length === 0) {
+    } else {
+      Aviator.navigate("/results", { queryParams: { places: places } });
+    }
   },
 
   handleChange: function(e) {
     var value     = document.querySelector('#searchInput').value.toLowerCase(),
         component = this,
         filtered  = this.bars().filter(function(bar) {
-          return (bar.name.toLowerCase().search(value) !== -1) &&
-                 (component.state.selectedBars.indexOf(bar) === -1);
+          return (value.length > 0) &&
+                 (bar.name.toLowerCase().search(value) !== -1) &&
+                 !component.isSelected(bar);
         });
 
     this.setState({ filter: value, filteredBars: filtered, selectedBars: this.state.selectedBars });
@@ -80,7 +97,9 @@ Views.Search = React.createClass({
     return (
       <li key={bar.name}>
         <p className="lead">
-          <a href="#" onClick={this.removeBar(bar)}>{bar.name}</a>
+          <a href="#" onClick={this.removeBar(bar)}><i className="glyphicon glyphicon-minus"></i></a>
+          &nbsp;
+          <a target="_blank" href={bar.site}>{bar.name}</a>
         </p>
       </li>
     );
@@ -90,7 +109,9 @@ Views.Search = React.createClass({
     return (
       <li key={bar.name}>
         <p className="lead">
-          <a href="#" onClick={this.addBar(bar)}>{bar.name}</a>
+          <a href="#" onClick={this.addBar(bar)}><i className="glyphicon glyphicon-plus"></i></a>
+          &nbsp;
+          <a target="_blank" href={bar.site}>{bar.name}</a>
         </p>
       </li>
     );
@@ -99,12 +120,19 @@ Views.Search = React.createClass({
   render: function() {
     return (
       <div className="container-fluid">
-        <input type="text"
-               id="searchInput"
-               className="form-control"
-               placeholder="Search for a bar"
-               onChange={this.handleChange}
-               />
+        <div className="row">
+          <div className="col-sm-10">
+            <input type="text"
+                   id="searchInput"
+                   className="form-control input-lg"
+                   placeholder="Search for a bar"
+                   onChange={this.handleChange}
+                   />
+           </div>
+          <div className="col-sm-2">
+            <button className="btn btn-primary" onClick={this.handleSubmit}>Let's go!</button>
+          </div>
+        </div>
 
         <div className="row">
           <div className="col-lg-6">
@@ -114,7 +142,7 @@ Views.Search = React.createClass({
             </ul>
           </div>
 
-          <div className="col-lg-6">
+          <div className="col-lg-6 text-right">
             <h2>Selected Bars</h2>
             <ul className="list-unstyled">
               {this.state.selectedBars.map(this.displaySelected)}

@@ -1,23 +1,27 @@
 var AppRouteTargets = function() {};
 
 AppRouteTargets.prototype = {
-  'home': function (request, options) {
+  'home': function(request, options) {
     this.mount('Home', Views.Home());
   },
 
-  'about': function (request, options) {
+  'about': function(request, options) {
     this.mount('About', Views.About());
   },
 
-  'contact': function (request, options) {
+  'contact': function(request, options) {
     this.mount('Contact', Views.Contact());
   },
 
-  'legal': function (request, options) {
+  'legal': function(request, options) {
     this.mount('Legal', Views.Home());
   },
 
-  'mount': function (active, component) {
+  'results': function(request, options) {
+    this.mount('Home', Views.Results());
+  },
+
+  'mount': function(active, component) {
     React.unmountComponentAtNode(contentNode);
     React.renderComponent(component, contentNode);
 

@@ -11,14 +11,10 @@ var Tabs = Tabs || {
 
 Views.Nav = React.createClass({
   handleClick: function(key) {
-    if (this.props.active == key) {
-      return function (e) { e.preventDefault(); };
-    } else {
-      return function (e) {
-        e.preventDefault();
-        Aviator.navigate(Tabs[key]);
-      }
-    }
+    return function(e) {
+      e.preventDefault();
+      Aviator.navigate(Tabs[key]);
+    };
   },
 
   renderKey: function(key) {

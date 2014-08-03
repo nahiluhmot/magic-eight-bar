@@ -7,6 +7,7 @@ Routes.prototype.dispatch = function(targets) {
     '/about': 'about',
     '/legal': 'legal',
     '/contact': 'contact',
+    '/results': 'results',
   });
 
   Aviator.dispatch();
