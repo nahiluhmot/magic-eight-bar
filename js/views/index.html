@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Magic Eight Bar</title>
+  </head>
+
+  <body>
+    <!-- This is the navigation node, controlled by JavaScript. -->
+    <div id="navNode" >
+    </div>
+
+    <!-- This div is the main layout which is controlled by JavaScript -->
+    <div id="view">
+    </div>
+
+    <!-- Include CSS stylesheets -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+
+    <!-- Include JS dependencies -->
+    <script type="text/javascript" src="/js/aviator.js"></script>
+    <script type="text/javascript" src="/js/reqwest.js"></script>
+    <script type="text/javascript" src="/js/react.js"></script>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/magic-eight-bar.js"></script>
+
+    <!-- Initialize the application -->
+    <script type="text/javascript">
+      var app         = new App(),
+          contentNode = document.querySelector('#view'),
+          navNode     = document.querySelector('#navNode');
+
+      app.start();
+    </script>
+  </body>
+</html>
