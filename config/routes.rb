@@ -6,6 +6,11 @@ Rails.application.routes.draw do
     get '/predictions', to: 'predictions#next_prediction'
   end
 
+  get '/about', to: 'static_pages#show'
+  get '/legal', to: 'static_pages#show'
+  get '/contact', to: 'static_pages#show'
+  get '/results', to: 'static_pages#show'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
