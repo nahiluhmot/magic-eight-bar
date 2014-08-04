@@ -82,8 +82,12 @@ Views.Search = React.createClass({
 
   handleClick: function(e) {
     document.querySelector('#post-search').style.paddingBottom = "1000px";
-    document.querySelector('#search-container').style.paddingTop = "100px";
-    smoothScroll.animateScroll(null, '#search-container', { speed: 500 });
+    smoothScroll.animateScroll(null, '#search-container', {
+      speed: 400,
+      updateURL: false,
+      offset: 70,
+      easing: 'easeInCubic'
+    });
     this.setState({ helpText: "Enter some bars you like, add them to your list, and click \"Let's Go!\"" });
   },
 
@@ -103,9 +107,9 @@ Views.Search = React.createClass({
     return (
       <li key={bar.name}>
         <p className="lead">
-          <a href="#" onClick={this.removeBar(bar)}><i className="glyphicon glyphicon-minus"></i></a>
-          &nbsp;
-          <a target="_blank" href={bar.site}>{bar.name}</a>
+          <a href="#" onClick={this.removeBar(bar)}>
+            <i className="glyphicon glyphicon-minus" />&nbsp;{bar.name}
+          </a>
         </p>
       </li>
     );
@@ -115,9 +119,9 @@ Views.Search = React.createClass({
     return (
       <li key={bar.name}>
         <p className="lead">
-          <a href="#" onClick={this.addBar(bar)}><i className="glyphicon glyphicon-plus"></i></a>
-          &nbsp;
-          <a target="_blank" href={bar.site}>{bar.name}</a>
+          <a href="#" onClick={this.addBar(bar)}>
+            <i className="glyphicon glyphicon-plus"></i>&nbsp;{bar.name}
+          </a>
         </p>
       </li>
     );
