@@ -27,7 +27,7 @@ Views.Results = React.createClass({
   },
 
   getMatchingBar: function(places) {
-  }
+  },
 
   render: function() {
     return (
