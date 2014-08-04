@@ -74,7 +74,7 @@ Views.Search = React.createClass({
     if(places.length === 0) {
       this.setState({ helpText: 'Please select at least one bar.' });
     } else {
-      Aviator.navigate('/results', { queryParams: { places: places } });
+      Aviator.navigate('/results');
     }
   },
 
