@@ -86,7 +86,10 @@ Views.Search = React.createClass({
       offset: 70,
       easing: 'easeInCubic'
     });
-    this.setState({ helpText: 'Enter some bars you like, add them to your list, and click "Let\'s Go!"' });
+    this.setState({
+      helpText: 'Enter some bars you like, add them to your list, and click ' +
+                '"Let\'s Go!"'
+    });
   },
 
   handleChange: function(e) {
@@ -165,7 +168,10 @@ Views.Search = React.createClass({
                    />
            </div>
           <div className="col-sm-2">
-            <button className="btn btn-lg btn-primary" onClick={this.handleSubmit}>Let's go!</button>
+            <button className="btn btn-lg btn-primary"
+                    onClick={this.handleSubmit}>
+              Let's go!
+            </button>
           </div>
         </div>
 

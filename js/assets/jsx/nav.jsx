@@ -38,7 +38,11 @@ Views.Nav = React.createClass({
       <nav className="navbar navbar-default navbar-fixed-top">
         <div className="container-fluid">
           <div className="navbar-header">
-            <a className="navbar-brand" href="/" onClick={this.handleClick('Home')}>Magic Eight Bar</a>
+            <a className="navbar-brand"
+               href="/"
+               onClick={this.handleClick('Home')}>
+              Magic Eight Bar
+            </a>
           </div>
 
           <div className="collapse navbar-collapse">
