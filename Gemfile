@@ -8,11 +8,12 @@ gem 'rails', '4.1.4'
 gem 'mysql2'
 
 # Use unicorn as the app server
-gem 'unicorn'
+gem 'unicorn-rails'
 
 # Annotate databse models
 gem 'annotate'
 
+# Search google places
 gem 'places_api', path: 'gems/places_api'
 
 group :development, :test do

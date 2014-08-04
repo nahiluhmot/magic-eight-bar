@@ -51,4 +51,4 @@ production:
   <<: *default
   database: magic-eight-bar_production
   username: magic-eight-bar
-  password: <%= ENV['MAGIC-EIGHT-BAR_DATABASE_PASSWORD'] %>
+  password: magic-eight-bar
