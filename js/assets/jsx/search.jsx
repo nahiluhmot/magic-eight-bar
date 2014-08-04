@@ -10,14 +10,12 @@ Views.Search = React.createClass({
   bars: function() {
     return [
       {
-        name: "Yard House",
-        site: "http://www.yardhouse.com",
-        placeId: "1"
+        name: 'Yard House',
+        placeId: '1'
       },
       {
-        name: "Bar Louie",
-        site: "http://www.barlouieamerica.com/",
-        placeId: "2"
+        name: 'Bar Louie',
+        placeId: '2'
       },
     ];
   },
@@ -74,21 +72,21 @@ Views.Search = React.createClass({
     e.preventDefault();
 
     if(places.length === 0) {
-      this.setState({ helpText: "You must select at least one bar." });
+      this.setState({ helpText: 'Please select at least one bar.' });
     } else {
-      Aviator.navigate("/results", { queryParams: { places: places } });
+      Aviator.navigate('/results', { queryParams: { places: places } });
     }
   },
 
   handleClick: function(e) {
-    document.querySelector('#post-search').style.paddingBottom = "1000px";
+    document.querySelector('#post-search').style.paddingBottom = '1000px';
     smoothScroll.animateScroll(null, '#search-container', {
       speed: 400,
       updateURL: false,
       offset: 70,
       easing: 'easeInCubic'
     });
-    this.setState({ helpText: "Enter some bars you like, add them to your list, and click \"Let's Go!\"" });
+    this.setState({ helpText: 'Enter some bars you like, add them to your list, and click "Let\'s Go!"' });
   },
 
   handleChange: function(e) {
@@ -106,9 +104,9 @@ Views.Search = React.createClass({
   displaySelected: function(bar) {
     return (
       <li key={bar.name}>
-        <p className="lead">
-          <a href="#" onClick={this.removeBar(bar)}>
-            <i className="glyphicon glyphicon-minus" />&nbsp;{bar.name}
+        <p className='lead'>
+          <a href='#' onClick={this.removeBar(bar)}>
+            <i className='glyphicon glyphicon-minus' />&nbsp;{bar.name}
           </a>
         </p>
       </li>
