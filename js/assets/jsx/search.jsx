@@ -4,20 +4,21 @@ var Views = Views || {};
 
 Views.Search = React.createClass({
   getInitialState: function() {
-    return { filter: '', filteredBars: [], selectedBars: [], helpText: '' };
+    return { filter: '', filteredBars: [], selectedBars: [], helpText: '', bars: [] };
   },
 
-  bars: function() {
-    return [
-      {
-        name: 'Yard House',
-        placeId: '1'
-      },
-      {
-        name: 'Bar Louie',
-        placeId: '2'
-      },
-    ];
+  componentWillMount: function() {
+    var component = this;
+    reqwest({
+      url: '/api/bars/',
+      method: 'GET',
+      type: 'json',
+      error: function() { console.log('Error getting list of bars'); },
+      success: function(resp) {
+        console.log(resp);
+        component.setState({ bars: resp });
+      }
+    });
   },
 
   isSelected: function(bar) {
@@ -79,7 +80,8 @@ Views.Search = React.createClass({
   },
 
   handleClick: function(e) {
-    document.querySelector('#post-search').style.paddingBottom = '1000px';
+    var newMargin = (window.innerHeight - 250) + 'px';
+    document.querySelector('#post-search').style.marginBottom = newMargin;
     smoothScroll.animateScroll(null, '#search-container', {
       speed: 400,
       updateURL: false,
@@ -95,7 +97,7 @@ Views.Search = React.createClass({
   handleChange: function(e) {
     var value     = document.querySelector('#searchInput').value.toLowerCase(),
         component = this,
-        filtered  = this.bars().filter(function(bar) {
+        filtered  = this.state.bars.filter(function(bar) {
           return (value.length > 0) &&
                  (bar.name.toLowerCase().search(value) !== -1) &&
                  !component.isSelected(bar);

@@ -13,7 +13,7 @@
 class Bar < ActiveRecord::Base
   include MashAttributes
 
-  validates :name, length: 1..120
+  validates :name, length: 1..120, uniqueness: true
   validates :place_id, uniqueness: true, presence: true
   validates :address, length: 1..120
 
