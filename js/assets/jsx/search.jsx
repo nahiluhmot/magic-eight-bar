@@ -4,7 +4,7 @@ var Views = Views || {};
 
 Views.Search = React.createClass({
   getInitialState: function() {
-    return { filter: '', filteredBars: [], selectedBars: [] };
+    return { filter: '', filteredBars: [], selectedBars: [], helpText: '' };
   },
 
   bars: function() {
@@ -15,7 +15,7 @@ Views.Search = React.createClass({
         placeId: "1"
       },
       {
-        name: "Bar Loiue",
+        name: "Bar Louie",
         site: "http://www.barlouieamerica.com/",
         placeId: "2"
       },
@@ -42,7 +42,6 @@ Views.Search = React.createClass({
         filteredBars: filtered.filter(function(thisBar) {
           return thisBar !== bar;
         }),
-        selectedBars: selected
       });
       e.preventDefault();
     };
@@ -59,7 +58,6 @@ Views.Search = React.createClass({
       }
 
       component.setState({
-        filteredBars: filtered,
         selectedBars: component.state.selectedBars.filter(function(thisBar) {
           return thisBar.name !== bar.name;
         })
@@ -76,9 +74,17 @@ Views.Search = React.createClass({
     e.preventDefault();
 
     if(places.length === 0) {
+      this.setState({ helpText: "You must select at least one bar." });
     } else {
       Aviator.navigate("/results", { queryParams: { places: places } });
     }
+  },
+
+  handleClick: function(e) {
+    document.querySelector('#post-search').style.paddingBottom = "1000px";
+    document.querySelector('#search-container').style.paddingTop = "100px";
+    smoothScroll.animateScroll(null, '#search-container', { speed: 500 });
+    this.setState({ helpText: "Enter some bars you like, add them to your list, and click \"Let's Go!\"" });
   },
 
   handleChange: function(e) {
@@ -90,7 +96,7 @@ Views.Search = React.createClass({
                  !component.isSelected(bar);
         });
 
-    this.setState({ filter: value, filteredBars: filtered, selectedBars: this.state.selectedBars });
+    this.setState({ filter: value, filteredBars: filtered });
   },
 
   displaySelected: function(bar) {
@@ -121,7 +127,7 @@ Views.Search = React.createClass({
     if(this.state.filteredBars.length > 0) {
       return (
         <div>
-          <h2>Matched Bars:</h2>
+          <h2>Search results:</h2>
           <ul className="list-unstyled">
             {this.state.filteredBars.map(this.displayUnselected)}
           </ul>
@@ -134,7 +140,7 @@ Views.Search = React.createClass({
     if(this.state.selectedBars.length > 0) {
       return (
         <div>
-          <h2>Selected Bars:</h2>
+          <h2>Your list:</h2>
           <ul className="list-unstyled">
             {this.state.selectedBars.map(this.displaySelected)}
           </ul>
@@ -145,13 +151,14 @@ Views.Search = React.createClass({
 
   render: function() {
     return (
-      <div className="container-fluid">
-        <div className="row">
+      <div className="container-fluid top-level">
+        <div id="search-container" className="row">
           <div className="col-sm-10">
             <input type="text"
                    id="searchInput"
                    className="form-control input-lg"
                    placeholder="Search for a bar"
+                   onClick={this.handleClick}
                    onChange={this.handleChange}
                    />
            </div>
@@ -161,6 +168,10 @@ Views.Search = React.createClass({
         </div>
 
         <div className="row">
+          <p className="lead text-center">{this.state.helpText}</p>
+        </div>
+
+        <div id="post-search" className="row">
           <div className="col-lg-6">
             {this.displayAllUnselected()}
           </div>

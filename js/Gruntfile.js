@@ -21,6 +21,16 @@ module.exports = function(grunt) {
           }
         ]
       },
+      smooth: {
+        files: [
+          {
+            expand: true,
+            cwd: 'bower_components/smooth-scroll/dist/js',
+            src: '*.js',
+            dest: 'public/js'
+          }
+        ]
+      },
       jquery: {
         files: [
           {
@@ -59,6 +69,16 @@ module.exports = function(grunt) {
             cwd: 'bower_components/aviator/',
             src: 'aviator.js',
             dest: 'public/js/',
+          }
+        ]
+      },
+      images: {
+        files: [
+          {
+            expand: true,
+            cwd: 'assets/img/',
+            src: '*.jpg',
+            dest: 'public/img/'
           }
         ]
       },

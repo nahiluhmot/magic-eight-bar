@@ -5,6 +5,7 @@ App.prototype.start = function () {
       routes  = new Routes();
 
   routes.dispatch(targets);
+  smoothScroll.init();
 }
 
 
