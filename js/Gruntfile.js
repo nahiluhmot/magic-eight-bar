@@ -55,7 +55,7 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
-            cwd: 'bower_components/bootswatch/yeti',
+            cwd: 'bower_components/bootswatch/cosmo',
             src: '*.css',
             dest: 'public/css/'
           }

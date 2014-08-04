@@ -167,9 +167,12 @@ Views.Search = React.createClass({
                    />
            </div>
           <div className="col-sm-2">
-            <button className="btn btn-primary" onClick={this.handleSubmit}>Let's go!</button>
+            <button className="btn btn-lg btn-primary" onClick={this.handleSubmit}>Let's go!</button>
           </div>
         </div>
+
+        <br />
+        <br />
 
         <div className="row">
           <p className="lead text-center">{this.state.helpText}</p>
