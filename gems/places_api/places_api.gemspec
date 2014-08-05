@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.summary       = %q(An API client for Google Places)
   gem.homepage      = 'https://github.com/nahiluhmot/google_places'
   gem.license       = 'MIT'
-  gem.files         = `git ls-files`.split($OUTPUT_RECORD_SEPARATOR)
+  gem.files         = Dir['./**/*.rb']
   gem.executables   = gem.files.grep(/^bin\//).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(/^spec\//)
   gem.name          = 'places_api'

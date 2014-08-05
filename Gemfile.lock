@@ -135,5 +135,6 @@ DEPENDENCIES
   places_api!
   pry-rails
   rails (= 4.1.4)
+  rake
   rspec-rails
   unicorn-rails
