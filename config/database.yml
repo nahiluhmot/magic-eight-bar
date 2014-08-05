@@ -51,7 +51,7 @@ production:
   adapter: mysql2
   encoding: utf8
   pool: 5
-  host: localhost
+  host: 127.0.0.1
   port: 3306
   database: magic-eight-bar_production
   username: root
