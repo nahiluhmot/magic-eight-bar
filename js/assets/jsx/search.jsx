@@ -114,7 +114,7 @@ Views.Search = React.createClass({
       <li key={bar.name}>
         <p className='lead'>
           <a href='#' onClick={this.removeBar(bar)}>
-            <i className='glyphicon glyphicon-minus' />&nbsp;{bar.name}
+            - {bar.name}
           </a>
         </p>
       </li>
@@ -126,7 +126,7 @@ Views.Search = React.createClass({
       <li key={bar.name}>
         <p className="lead">
           <a href="#" onClick={this.addBar(bar)}>
-            <i className="glyphicon glyphicon-plus"></i>&nbsp;{bar.name}
+            + {bar.name}
           </a>
         </p>
       </li>
