@@ -41,7 +41,7 @@ Views.Nav = React.createClass({
             <a className="navbar-brand"
                href="/"
                onClick={this.handleClick('Home')}>
-              Magic Eight Bar
+              Magic 8 Bar
             </a>
           </div>
 

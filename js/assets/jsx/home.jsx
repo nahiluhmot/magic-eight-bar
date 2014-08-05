@@ -9,7 +9,7 @@ Views.Home = React.createClass({
         <div className="jumbotron text-center fix-margin">
           <h1 className="push-down">Drink, don't think.</h1>
           <p className="lead">
-            Use Magic Eight Bar to explore new bars in Boston.
+            Use Magic 8 Bar to explore new bars in Boston.
           </p>
         </div>
 
