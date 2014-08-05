@@ -13,6 +13,7 @@ Views.Home = React.createClass({
           </p>
         </div>
 
+        {Views.Warning()}
         {Views.Search()}
       </div>
     );

@@ -4,29 +4,27 @@ var Views = Views || {};
 
 Views.Results = React.createClass({
   getInitialState: function() {
-    return {};
+    return { bar: {} };
   },
 
-  getQueryParams: function() {
-    var query  = window.location.search.substring(1),
-        result = {};
+  componentWillMount: function() {
+    getNextPreduction();
+  },
 
-    query.split('&').forEach(function(keyVal) {
-      var pair = keyVal.split('='),
-          match = pair[0].match(/^(.*)\[\]$/);
+  getNextPreduction: function() {
+    var component = this;
 
-      if(match === null) {
-        result[pair[0]] = pair[1];
-      } else {
-        result[match[1]] = result[match[1]] || [];
-        result[match[1]].push(pair[1]);
+    reqwest({
+      url: '/api/predictions/',
+      method: 'GET',
+      type: 'json',
+      error: function() {
+        console.log('Error getting next prediction');
+      },
+      success: function(bar) {
+        component.setState({ bar: bar });
       }
     });
-
-    return result;
-  },
-
-  getMatchingBar: function(places) {
   },
 
   render: function() {
@@ -35,14 +33,17 @@ Views.Results = React.createClass({
         <h1>Results</h1>
 
         <div className="row">
-          <div className="col-lg-6">
-            <p className="lead">You should go to: {this.state.bar}!</p>
-          </div>
-
-          <div className="col-lg-6">
-          </div>
-
+          <p className="lead">You should go to: {this.state.bar.name}!</p>
         </div>
+
+        <div className="row">
+          <div className="col-lg-6">
+          </div>
+
+          <div className="col-lg-6">
+          </div>
+        </div>
+
       </div>
     );
   }
