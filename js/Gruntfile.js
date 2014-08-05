@@ -88,7 +88,7 @@ module.exports = function(grunt) {
             expand: true,
             flatten: true,
             cwd: 'bower_components/reqwest/',
-            src: 'reqwest.js',
+            src: ['reqwest.js', 'reqwest.min.js'],
             dest: 'public/js/',
           }
         ]

@@ -13,9 +13,12 @@ Views.Search = React.createClass({
       url: '/api/bars/',
       method: 'GET',
       type: 'json',
-      error: function() { console.log('Error getting list of bars'); },
+      error: function() {
+        component.setState({
+          helpText: "Error communicating with server, please try again later"
+        });
+      },
       success: function(resp) {
-        console.log(resp);
         component.setState({ bars: resp });
       }
     });
