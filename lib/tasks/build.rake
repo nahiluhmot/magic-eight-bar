@@ -4,7 +4,7 @@ namespace :build do
   file 'secrets' do
     client = Fog::Storage.new(provider: 'AWS')
     secrets = client.directories.get('magic-eight-bar').files.get('secrets')
-    File.open('secrets', 'w') { |file| file.write(secrets) }
+    File.open('secrets', 'w') { |file| file.write(secrets.body) }
   end
 
   task :docker => 'secrets' do
