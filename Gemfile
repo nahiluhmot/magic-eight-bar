@@ -13,14 +13,16 @@ gem 'mysql2'
 # Use unicorn as the app server
 gem 'unicorn-rails'
 
-# Annotate databse models
-gem 'annotate'
-
 # Search google places
 gem 'places_api', path: 'gems/places_api'
 
-# Search the FOG
-gem 'fog'
+group :development do
+  # Annotate databse models
+  gem 'annotate'
+
+  # Interact with the cloud
+  gem 'fog'
+end
 
 group :development, :test do
   # Test framework

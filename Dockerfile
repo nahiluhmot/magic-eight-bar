@@ -34,5 +34,5 @@ WORKDIR /app/gems/places_api
 RUN bundle install --path vendor/bundle/
 
 WORKDIR /app
-RUN bundle install --path vendor/bundle/
+RUN bundle install --path vendor/bundle/ --deployment
 RUN bundle exec rake js:rebuild
