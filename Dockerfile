@@ -36,4 +36,3 @@ RUN bundle install --path vendor/bundle/
 WORKDIR /app
 RUN bundle install --path vendor/bundle/
 RUN bundle exec rake js:rebuild
-RUN source secrets
