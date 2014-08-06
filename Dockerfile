@@ -15,7 +15,6 @@ RUN apt-get -y install nodejs npm
 RUN npm install -g bower grunt-cli
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-
 # Build the app
 RUN gem install bundler
 RUN apt-get install -y sudo libmysqlclient-dev
@@ -37,3 +36,4 @@ RUN bundle install --path vendor/bundle/
 WORKDIR /app
 RUN bundle install --path vendor/bundle/
 RUN bundle exec rake js:rebuild
+RUN source secrets

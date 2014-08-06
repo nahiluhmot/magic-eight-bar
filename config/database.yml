@@ -55,4 +55,4 @@ production:
   port: 3306
   database: magic-eight-bar_production
   username: root
-  password: magic-eight-bar
+  password: <%= ENV['DATABASE_PASSWORD'] %>

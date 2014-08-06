@@ -19,6 +19,9 @@ gem 'annotate'
 # Search google places
 gem 'places_api', path: 'gems/places_api'
 
+# Search the FOG
+gem 'fog'
+
 group :development, :test do
   # Test framework
   gem 'rspec-rails'
