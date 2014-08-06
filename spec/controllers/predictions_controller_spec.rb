@@ -11,7 +11,7 @@ describe PredictionsController, type: :controller do
     end
 
     context 'when there is a user logged in' do
-      let(:user) { UsersService.create_user }
+      let(:user) { User.create! }
       let(:bar) {
         Bar.new(
           name: 'Punter\'s',

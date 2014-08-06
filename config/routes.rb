@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   scope '/api' do
-    resources :users, only: [:index, :create, :show]
-    resources :bars, only: [:index, :create, :show, :destroy]
+    resources :users, only: [:create]
+    resources :bars, only: [:index]
     resources :reviews, only: [:index, :create]
     get '/predictions', to: 'predictions#next_prediction'
   end

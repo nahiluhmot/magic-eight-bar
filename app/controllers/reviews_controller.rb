@@ -4,9 +4,7 @@ class ReviewsController < ApplicationController
   # both.
   def index
     when_logged_in do |user|
-      reviews = Review.where(user_id: user.id).map
-      render status: 200,
-             json: reviews.map(&:attributes).to_json
+      render status: 200, json: Review.where(user_id: user.id).to_json
     end
   end
 
@@ -40,6 +38,6 @@ class ReviewsController < ApplicationController
   end
 
   def current_user
-    UsersService.get_user(cookies[:id])
+    User.where(session: cookies[:id]).first
   end
 end

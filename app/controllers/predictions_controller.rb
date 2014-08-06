@@ -1,5 +1,6 @@
 # This controller returns predictions for the logged in user
 class PredictionsController < ApplicationController
+  # Get the next prediction.
   def next_prediction
     if user = User.where(session: cookies[:id]).first
       bar_ids = Review.where(user_id: user.id).pluck(:bar_id).uniq

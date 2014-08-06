@@ -11,7 +11,7 @@ module GooglePlacesService
   end
 
   def save_bar(bar)
-    BarsService.create_bar(
+    Bar.create!(
       name: bar.name,
       address: bar.formatted_address,
       place_id: bar.place_id

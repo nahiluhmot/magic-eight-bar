@@ -17,7 +17,7 @@ describe User, type: :model do
     context 'when the session is nil' do
       let(:session) { nil }
 
-      it { should_not be_valid }
+      it { be_valid }
     end
 
     context 'when the session\'s length is not 32' do
@@ -59,6 +59,27 @@ describe User, type: :model do
 
     it 'returns all of the reviews for the given bar' do
       expect(subject.reviews).to eq([review])
+    end
+  end
+
+  describe '#create!' do
+    context 'when the session is not set' do
+      let(:user) { User.create! }
+      let(:session) { user.session }
+
+      it 'makes a new session' do
+        expect(session).to be_a(String)
+        expect(session.length).to eq(32)
+      end
+    end
+
+    context 'when the session is set' do
+      let(:user) { User.create!(session: session) }
+      let(:session) { 32.times.map { rand(10) }.join }
+
+      it 'uses that session' do
+        expect(user.session).to eq(session)
+      end
     end
   end
 end

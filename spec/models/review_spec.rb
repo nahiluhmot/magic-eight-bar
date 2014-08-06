@@ -21,9 +21,9 @@ describe Review, type: :model do
         rating: rating
       )
     }
-    let(:user) { UsersService.create_user }
+    let(:user) { User.create! }
     let(:bar) {
-      BarsService.create_bar(
+      Bar.create!(
         name: 'Place',
         address: '213 Test Street',
         place_id: 27.times.map { rand(10) }.join

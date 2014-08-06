@@ -11,7 +11,7 @@ describe ReviewsController, type: :controller do
     end
 
     context 'when a user is signed in' do
-      let(:user) { UsersService.create_user }
+      let(:user) { User.create! }
 
       before { request.cookies['id'] = user.session }
 
@@ -56,7 +56,7 @@ describe ReviewsController, type: :controller do
     end
 
     context 'when a user is signed in' do
-      let(:user) { UsersService.create_user }
+      let(:user) { User.create! }
       let(:bar) {
         Bar.create!(
           name: 'Yard House',
