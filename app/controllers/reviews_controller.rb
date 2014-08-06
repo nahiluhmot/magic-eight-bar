@@ -28,9 +28,7 @@ class ReviewsController < ApplicationController
   private
 
   def when_logged_in(&block)
-    if params[:user_id].nil?
-      render status: 400, body: 'No user_id given'
-    elsif current_user.try(&:id) == params[:user_id].to_i
+    if (params[:user_id] = current_user.try(&:id)).present?
       block.call(current_user)
     else
       render status: 403, body: 'Unauthorized'
