@@ -37,10 +37,6 @@ Views.Warning = React.createClass({
           <div className="modal-content">
 
             <div className="modal-header">
-              <button type="button" className="close" data-dismiss="modal">
-                <span aria-hidden="true">&times;</span>
-                <span className="sr-only">Close</span>
-              </button>
               <h4 className="modal-title">Magic 8 Bar</h4>
             </div>
 
