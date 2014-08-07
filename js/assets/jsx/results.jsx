@@ -24,25 +24,30 @@ Views.Results = React.createClass({
     });
   },
 
+  renderMap: function() {
+    if(this.state.bar.lat && this.state.bar.lon) {
+      return Views.Map({
+        id: 'prediction-map',
+        lat: Number(this.state.bar.lat),
+        lon: Number(this.state.bar.lon),
+        style: { height: '500px' },
+        marker: this.state.bar.name
+      });
+    }
+  },
+
   render: function() {
     return (
-      <div className="container-fluid fix-margin top-level">
-        <div className="row">
-          <h1>Prediction</h1>
-        </div>
-
-        <div className="row">
-          <p className="lead">You should go to: {this.state.bar.name}!</p>
+      <div className="container-fluid top-level fix-margin">
+        <div className="row text-center">
+          <h3>{this.state.bar.name}</h3>
         </div>
 
         <div className="row">
           <div className="col-lg-6">
-          </div>
-
-          <div className="col-lg-6">
+            {this.renderMap()}
           </div>
         </div>
-
       </div>
     );
   }
