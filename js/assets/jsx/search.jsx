@@ -9,10 +9,8 @@ Views.Search = React.createClass({
 
   componentWillMount: function() {
     var component = this;
-    reqwest({
-      url: '/api/bars/',
-      method: 'GET',
-      type: 'json',
+
+    Bars.list({
       error: function() {
         component.setState({
           helpText: "Error communicating with server, please try again later"
@@ -70,14 +68,19 @@ Views.Search = React.createClass({
   },
 
   handleSubmit: function(e) {
-    var places = this.state.selectedBars.map(function(bar) {
-      return bar.placeId;
-    });
     e.preventDefault();
 
-    if(places.length === 0) {
+    if(this.state.selectedBars.length === 0) {
       this.setState({ helpText: 'Please select at least one bar.' });
     } else {
+      this.state.selectedBars.forEach(function(bar) {
+        Reviews.create({
+          bar: bar,
+          rating: 1,
+          success: function() {},
+          error: function() {}
+        });
+      });
       Aviator.navigate('/results');
     }
   },

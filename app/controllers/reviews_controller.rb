@@ -21,7 +21,7 @@ class ReviewsController < ApplicationController
       end
     end
   rescue => ex
-    logger.error("Could not create user due to #{ex.class}: #{ex.message}")
+    logger.error("Could not create review due to #{ex.class}: #{ex.message}")
     render stauts: 400, json: ex.message
   end
 

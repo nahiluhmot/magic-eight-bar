@@ -11,11 +11,9 @@ Views.Warning = React.createClass({
   },
 
   createUser: function() {
-    reqwest({
-      url: '/api/users/',
-      method: 'POST',
-      type: 'json',
-      error: function() { goToGoogle(); },
+    var component = this;
+    Users.create({
+      error: function() { this.goToGoogle(); },
       success: function() { $('#warningModal').modal('hide'); }
     });
   },

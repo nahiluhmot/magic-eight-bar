@@ -8,16 +8,13 @@ Views.Results = React.createClass({
   },
 
   componentWillMount: function() {
-    getNextPreduction();
+    this.getNextPrediction();
   },
 
-  getNextPreduction: function() {
+  getNextPrediction: function() {
     var component = this;
 
-    reqwest({
-      url: '/api/predictions/',
-      method: 'GET',
-      type: 'json',
+    Predictions.next({
       error: function() {
         console.log('Error getting next prediction');
       },
@@ -30,7 +27,9 @@ Views.Results = React.createClass({
   render: function() {
     return (
       <div className="container-fluid fix-margin top-level">
-        <h1>Results</h1>
+        <div className="row">
+          <h1>Prediction</h1>
+        </div>
 
         <div className="row">
           <p className="lead">You should go to: {this.state.bar.name}!</p>
