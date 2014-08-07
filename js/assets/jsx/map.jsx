@@ -24,7 +24,7 @@ Views.Map = React.createClass({
 
   // Lifecyce events
   componentDidMount: function() {
-    var div     = this.mapDiv(),
+    var div     = this.getDomNode(),
         options = this.getOptions(),
         map     = new google.maps.Map(div, options);
 
@@ -38,9 +38,6 @@ Views.Map = React.createClass({
   },
 
   // Utility functions
-  mapDiv: function() {
-    return document.getElementById(this.props.id);
-  },
 
   getOptions: function() {
     var options = this.props.options;
@@ -57,6 +54,6 @@ Views.Map = React.createClass({
 
   // Called to show the HTML of this component.
   render: function() {
-    return <div className="map img-responsive" style={this.props.style} id={this.props.id} />;
+    return <div className="map img-responsive" style={this.props.style} />;
   }
 });
