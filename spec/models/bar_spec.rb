@@ -8,6 +8,8 @@
 #  address    :string(120)      not null
 #  created_at :datetime
 #  updated_at :datetime
+#  lat        :decimal(11, 8)
+#  lon        :decimal(11, 8)
 #
 
 require 'rails_helper'
@@ -18,7 +20,9 @@ describe Bar, type: :model do
       {
         name: "Bob's Burgers",
         address: "1234 Some Place, Boston, MA",
-        place_id: 27.times.map { rand(10) }.join
+        place_id: 27.times.map { rand(10) }.join,
+        lat: rand(100),
+        lon: rand(100)
       }
     }
     subject { Bar.new(hash) }
@@ -65,7 +69,9 @@ describe Bar, type: :model do
       Bar.create!(
         name: "The Bar",
         address: "4234 A Place, Boston, MA",
-        place_id: 27.times.map { rand(10) }.join
+        place_id: 27.times.map { rand(10) }.join,
+        lat: 32,
+        lon: -74
       )
     }
     let!(:user) { User.create!(session: 32.times.map { rand(10) }.join) }

@@ -17,7 +17,9 @@ describe ReviewsController, type: :controller do
         Bar.create!(
           name: 'Bar Louie',
           place_id: 'abcd',
-          address: 'test address'
+          address: 'test address',
+          lat: 1,
+          lon: 1
         )
       }
       let!(:reviews) {
@@ -49,7 +51,9 @@ describe ReviewsController, type: :controller do
         Bar.create!(
           name: 'Yard House',
           place_id: 'ABCD',
-          address: 'test'
+          address: 'test',
+          lat: 0,
+          lon: 0
         )
       }
       before { @request.cookies['id'] = user.session }

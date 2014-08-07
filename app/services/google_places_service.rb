@@ -14,7 +14,9 @@ module GooglePlacesService
     Bar.create!(
       name: bar.name,
       address: bar.formatted_address,
-      place_id: bar.place_id
+      place_id: bar.place_id,
+      lat: bar.geometry.location.lat,
+      lon: bar.geometry.location.lng
     )
     logger.info("Created bar with name: #{bar.name}")
   rescue => ex

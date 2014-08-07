@@ -26,7 +26,9 @@ describe Review, type: :model do
       Bar.create!(
         name: 'Place',
         address: '213 Test Street',
-        place_id: 27.times.map { rand(10) }.join
+        place_id: 27.times.map { rand(10) }.join,
+        lat: 34,
+        lon: -72
       )
     }
     let(:rating) { 1 }

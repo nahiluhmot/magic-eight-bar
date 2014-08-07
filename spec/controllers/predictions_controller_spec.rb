@@ -15,8 +15,10 @@ describe PredictionsController, type: :controller do
       let(:bar) {
         Bar.new(
           name: 'Punter\'s',
-          place_id: 'TeSt',
-          address: 'some address'
+          place_id: 'Test',
+          address: 'some address',
+          lat: 32,
+          lon: -74
         )
       }
 
@@ -30,7 +32,7 @@ describe PredictionsController, type: :controller do
         get :next_prediction
 
         expect(response.status).to eq(200)
-        expect(JSON.parse(response.body)).to eq(bar.attributes)
+        expect(JSON.parse(response.body)['id']).to eq(bar.id)
       end
     end
   end

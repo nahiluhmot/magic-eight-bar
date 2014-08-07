@@ -48,7 +48,9 @@ describe User, type: :model do
       Bar.create!(
         name: "The Bar",
         address: "4234 A Place, Boston, MA",
-        place_id: 27.times.map { rand(10) }.join
+        place_id: 27.times.map { rand(10) }.join,
+        lat: 10,
+        lon: -1
       )
     }
     let!(:review) {

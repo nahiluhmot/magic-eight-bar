@@ -9,7 +9,9 @@ describe BarsController, type: :controller do
         Bar.create!(
           name: "Bar #{i}",
           address: "#{i} Test Street",
-          place_id: 27.times.map { rand(10) }.join
+          place_id: 27.times.map { rand(10) }.join,
+          lat: rand(10),
+          lon: rand(1) - 10
         )
       }
     }
