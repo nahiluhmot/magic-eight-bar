@@ -18,3 +18,7 @@
 /public/
 
 secrets
+
+/bower_components/
+/node_modules/
+/public/

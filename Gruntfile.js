@@ -76,7 +76,7 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
-            cwd: 'assets/img/',
+            cwd: 'frontend/img/',
             src: '*.jpg',
             dest: 'public/img/'
           }
@@ -97,7 +97,7 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
-            cwd: 'assets/js/',
+            cwd: 'frontend/js/',
             src: '**/*.js',
             dest: 'tmp/js/'
           }
@@ -107,7 +107,7 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
-            cwd: 'views/',
+            cwd: 'frontend/html/',
             src: '**/*.html',
             dest: 'public/'
           }
@@ -119,7 +119,7 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
-            cwd: 'assets/jsx',
+            cwd: 'frontend/jsx',
             src: '**/*.jsx',
             dest: 'tmp/js',
             ext: '.js'
@@ -139,7 +139,7 @@ module.exports = function(grunt) {
         dest: 'public/js/<%= pkg.name %>.js'
       },
       css: {
-        src: ['assets/less/**/*.less'],
+        src: ['frontend/less/**/*.less'],
         dest: 'tmp/less/<%= pkg.name %>.less'
       }
     },
@@ -170,7 +170,7 @@ module.exports = function(grunt) {
     },
     watch: {
       all: {
-        files: ['assets/js/**/*', 'assets/less/**/*', 'assets/jsx/**/*'],
+        files: ['frontend/js/**/*', 'frontend/less/**/*', 'frontend/jsx/**/*'],
         tasks: ['copy:js', 'react:jsx', 'concat:js', 'concat:css', 'uglify:js', 'recess:dist', 'recess:min', 'timestamp']
       }
     }

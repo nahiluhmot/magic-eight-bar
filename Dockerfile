@@ -16,23 +16,23 @@ RUN npm install -g bower grunt-cli
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
 # Build the app
+RUN rm -rf /tmp
 RUN gem install bundler
-RUN apt-get install -y sudo libmysqlclient-dev
 RUN useradd magic -p magic
 ADD . /app
 RUN chown -R magic:magic /app
 USER magic
 
-WORKDIR /app/js
+WORKDIR /app/gems/places_api
+RUN bundle install --deployment --jobs 8
+
+WORKDIR /app
 RUN npm install
 USER root
-RUN bower install --allow-root
+RUN bower install --allow-root --production
 RUN chown -R magic:magic bower_components/
 USER magic
 
-WORKDIR /app/gems/places_api
-RUN bundle install --path vendor/bundle/
-
 WORKDIR /app
-RUN bundle install --path vendor/bundle/ --deployment
-RUN bundle exec rake js:rebuild
+RUN bundle install --deployment --jobs 8
+RUN grunt
