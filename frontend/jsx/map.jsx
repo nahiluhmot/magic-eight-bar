@@ -24,7 +24,7 @@ Views.Map = React.createClass({
 
   // Lifecyce events
   componentDidMount: function() {
-    var div     = this.getDomNode(),
+    var div     = this.getDOMNode(),
         options = this.getOptions(),
         map     = new google.maps.Map(div, options);
 
