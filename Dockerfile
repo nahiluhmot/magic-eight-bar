@@ -19,6 +19,7 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 RUN rm -rf /tmp
 RUN gem install bundler
 RUN useradd magic -p magic
+RUN apt-get install -y sudo libmysqlclient-dev
 ADD . /app
 RUN chown -R magic:magic /app
 USER magic
