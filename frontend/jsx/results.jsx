@@ -19,7 +19,18 @@ Views.Results = React.createClass({
         console.log('Error getting next prediction');
       },
       success: function(bar) {
-        component.setState({ bar: bar, helpText: null });
+        component.setState({ map: null });
+        component.setState({
+          bar: bar,
+          helpText: null,
+          map: Views.Map({
+            id: 'prediction-map',
+            lat: Number(bar.lat),
+            lon: Number(bar.lon),
+            style: { height: '500px' },
+            marker: bar.name
+          })
+        });
       }
     });
   },
@@ -42,8 +53,16 @@ Views.Results = React.createClass({
     });
   },
 
+  renderHeader: function() {
+    return (
+      <div className="row text-center">
+        <h3>{this.state.bar.name}</h3>
+      </div>
+    );
+  },
+
   renderHelpText: function() {
-    if ((typeof this.state.helpText) === 'string') {
+    if((typeof this.state.helpText) === 'string') {
       return (
         <div className="row">
           <div className="col-lg-12">
@@ -55,19 +74,11 @@ Views.Results = React.createClass({
   },
 
   renderMap: function() {
-    if(this.state.bar.lat && this.state.bar.lon) {
+    if(this.state.map) {
       return (
         <div className="row">
           <div className="col-lg-12">
-            {
-              Views.Map({
-                id: 'prediction-map',
-                lat: Number(this.state.bar.lat),
-                lon: Number(this.state.bar.lon),
-                style: { height: '500px' },
-                marker: this.state.bar.name
-              })
-            }
+            {this.state.map}
           </div>
         </div>
       );
@@ -76,10 +87,10 @@ Views.Results = React.createClass({
 
   renderButtons: function() {
     return (
-      <div className="row pull-center">
+      <div className="row text-center">
         <div className="col-sm-4">
           <button href="/reviews"
-                  className="btn btn-lg btn-error"
+                  className="btn btn-lg btn-danger"
                   onClick={this.handleClick(-1)}>
             Nah
           </button>
@@ -87,7 +98,8 @@ Views.Results = React.createClass({
 
         <div className="col-sm-4">
           <button href="/reviews"
-                  className="btn btn-lg btn-primary"
+                  className="btn btn-lg btn-warning"
+                  style={{ background: "#e6a62a", borderColor: "#e6a62a" }}
                   onClick={this.handleClick(0)}>
             Skip
           </button>
@@ -104,21 +116,16 @@ Views.Results = React.createClass({
     );
   },
 
-  renderHeader: function() {
-    return (
-      <div className="row text-center">
-        <h3>{this.state.bar.name}</h3>
-      </div>
-    );
-  },
-
   render: function() {
     return (
       <div className="container-fluid top-level fix-margin">
 
-        {this.rendreHeader()}
+        {this.renderHeader()}
         {this.renderHelpText()}
         {this.renderMap()}
+
+        <br />
+
         {this.renderButtons()}
 
       </div>

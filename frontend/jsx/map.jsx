@@ -54,6 +54,6 @@ Views.Map = React.createClass({
 
   // Called to show the HTML of this component.
   render: function() {
-    return <div className="map img-responsive" style={this.props.style} />;
+    return <div id={this.props.id} className="map img-responsive" style={this.props.style} />;
   }
 });
