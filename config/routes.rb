@@ -3,13 +3,15 @@ Rails.application.routes.draw do
     resources :users, only: [:create]
     resources :bars, only: [:index]
     resources :reviews, only: [:index, :create]
+
+    get '/users/valid', to: 'users#valid?'
     get '/predictions', to: 'predictions#next_prediction'
   end
 
-  get '/about', to: 'static_pages#show'
-  get '/legal', to: 'static_pages#show'
-  get '/contact', to: 'static_pages#show'
-  get '/results', to: 'static_pages#show'
+  # Let the frontend handle the user-facing pages.
+  %w(/about /legal /contact /results).each do |route|
+    get route, to: 'static_pages#show'
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
