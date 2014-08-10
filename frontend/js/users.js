@@ -8,5 +8,15 @@ var Users = {
     options.type = 'json';
 
     reqwest(options);
+  },
+
+  valid: function(options) {
+    options = options || {};
+
+    options.url = '/api/users/valid';
+    options.method = 'GET';
+    options.type = 'json';
+
+    reqwest(options);
   }
 };

@@ -13,10 +13,10 @@ describe UsersController, type: :controller do
 
   describe 'GET valid?' do
     context 'when the request has no cookies' do
-      it 'returns a 400' do
+      it 'returns a 404' do
         get :valid?
 
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(404)
       end
     end
 
@@ -26,10 +26,10 @@ describe UsersController, type: :controller do
       context 'but the cookie does not correspond to a valid user' do
         let(:cookie) { 'lol fake cookie' }
 
-        it 'returns a 400' do
+        it 'returns a 404' do
           get :valid?
 
-          expect(response.status).to eq(400)
+          expect(response.status).to eq(404)
         end
       end
 

@@ -23,7 +23,11 @@ Views.Warning = React.createClass({
   },
 
   componentDidMount: function() {
-    if(!this.cookieIsSet()) {
+    if(this.cookieIsSet()) {
+      Users.valid({
+        error: function() { $('#warningModal').modal('show') }
+      });
+    } else {
       $('#warningModal').modal('show');
     }
   },

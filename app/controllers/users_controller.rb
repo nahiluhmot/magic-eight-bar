@@ -20,7 +20,7 @@ class UsersController < ApplicationController
       render status: 200, body: nil
     else
       logger.debug('User is invalid')
-      render status: 400, body: nil
+      render status: 404, body: nil
     end
   end
 end
