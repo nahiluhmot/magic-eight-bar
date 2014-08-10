@@ -15,7 +15,6 @@ var Users = {
 
     options.url = '/api/users/valid';
     options.method = 'GET';
-    options.type = 'json';
 
     reqwest(options);
   }
