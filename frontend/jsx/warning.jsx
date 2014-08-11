@@ -2,7 +2,14 @@
 
 var Views = Views || {};
 
+/**
+ * This component is for rendering the "Are you 21+" warning on the home page.
+ * It knows not to render that warning if the user has a valid cookie.
+ */
 Views.Warning = React.createClass({
+  /**
+   * Test if the cookie is set.
+   */
   cookieIsSet: function() {
     var sessionId = Utils.getCookies()['id'];
 
@@ -10,18 +17,29 @@ Views.Warning = React.createClass({
            (sessionId.length > 0);
   },
 
+  /**
+   * Create a new user, hiding the modal on completion.
+   */
   createUser: function() {
     var component = this;
     Users.create({
-      error: function() { this.goToGoogle(); },
+      error: function() { $('#warningModal').modal('hide');  },
       success: function() { $('#warningModal').modal('hide'); }
     });
   },
 
+  /**
+   * Redirect to Google.
+   */
   goToGoogle: function() {
     window.location.href = 'http://google.com';
   },
 
+  /**
+   * After the component mounts, test if there is a valid logged in user. If
+   * there is, the modal will remain invisible. Otherwise, it will show on the
+   * page.
+   */
   componentDidMount: function() {
     if(this.cookieIsSet()) {
       Users.valid({
@@ -32,6 +50,9 @@ Views.Warning = React.createClass({
     }
   },
 
+  /**
+   * Render the modal.
+   */
   render: function() {
     return (
       <div id="warningModal" className="modal fade">

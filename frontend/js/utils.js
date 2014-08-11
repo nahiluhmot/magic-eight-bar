@@ -1,4 +1,13 @@
-var Utils = Utils || {
+/**
+ * This object contains miscellanous functions not related to any other
+ * object/module.
+ */
+var Utils = {
+  /**
+   * Get the cookies stored in the browser.
+   *
+   * returns: a hash mapping the cookie key to its value.
+   */
   getCookies: function() {
     var cookies = {};
 

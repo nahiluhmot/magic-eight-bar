@@ -54,20 +54,22 @@ Views.Results = React.createClass({
   },
 
   renderHeader: function() {
-    return (
-      <div className="row text-center">
-        <h3>
-          <a href={this.state.bar.website} target="_blank">
-            {this.state.bar.name}
-          </a>
-        </h3>
-        <p className="lead">{this.state.bar.address}</p>
-      </div>
-    );
+    if(this.state.bar) {
+      return (
+        <div className="row text-center">
+          <h3>
+            <a href={this.state.bar.website} target="_blank">
+              {this.state.bar.name}
+            </a>
+          </h3>
+          <p className="lead">{this.state.bar.address}</p>
+        </div>
+      );
+    }
   },
 
   renderHelpText: function() {
-    if((typeof this.state.helpText) === 'string') {
+    if(this.state.helpText) {
       return (
         <div className="row">
           <div className="col-lg-12">

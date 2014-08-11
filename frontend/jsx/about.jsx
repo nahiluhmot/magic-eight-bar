@@ -2,7 +2,13 @@
 
 var Views = Views || {};
 
+/**
+ * This component handles logic for the '/about' route.
+ */
 Views.About = React.createClass({
+  /**
+   * Render the about page.
+   */
   render: function() {
     return (
       <div className="container top-level fix-margin">

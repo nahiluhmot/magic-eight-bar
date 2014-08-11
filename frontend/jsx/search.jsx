@@ -2,11 +2,28 @@
 
 var Views = Views || {};
 
+/**
+ * This component handles the search functionality for the application.
+ */
 Views.Search = React.createClass({
+  /**
+   * Initially, there are no bars, we assume nothing has went wrong, and there
+   * is no search.
+   */
   getInitialState: function() {
-    return { filter: '', filteredBars: [], selectedBars: [], helpText: '', bars: [] };
+    return {
+      filter: '',
+      filteredBars: [],
+      selectedBars: [],
+      helpText: '',
+      bars: []
+    };
   },
 
+  /**
+   * When the component is about to mount, asynchronously get the list of bars
+   * from the backend.
+   */
   componentWillMount: function() {
     var component = this;
 
@@ -22,6 +39,9 @@ Views.Search = React.createClass({
     });
   },
 
+  /**
+   * Test if th egiven bar has been selected by the user.
+   */
   isSelected: function(bar) {
     var foundBars = this.state.selectedBars.filter(function(current) {
       return current.name === bar.name;
@@ -30,6 +50,9 @@ Views.Search = React.createClass({
     return foundBars.length > 0;
   },
 
+  /**
+   * Add a bar to the selected list.
+   */
   addBar: function(bar) {
     var component = this;
 
@@ -47,6 +70,9 @@ Views.Search = React.createClass({
     };
   },
 
+  /**
+   * Remove a bar from the selected list.
+   */
   removeBar: function(bar) {
     var component = this;
 
@@ -67,6 +93,10 @@ Views.Search = React.createClass({
     };
   },
 
+    /**
+     * When the "Let's Go" button in clicked, route to the results page unless
+     * the user has not selected any bars.
+     */
   handleSubmit: function(e) {
     e.preventDefault();
 
@@ -85,6 +115,10 @@ Views.Search = React.createClass({
     }
   },
 
+  /**
+   * When the user clicks on the search bar, scroll down so that it is at the
+   * top.
+   */
   handleClick: function(e) {
     var newMargin = (window.innerHeight - 250) + 'px';
     document.querySelector('#post-search').style.marginBottom = newMargin;
@@ -100,6 +134,9 @@ Views.Search = React.createClass({
     });
   },
 
+  /**
+   * Update the search results when the user types in the search field.
+   */
   handleChange: function(e) {
     var value     = document.querySelector('#searchInput').value.toLowerCase(),
         component = this,
@@ -112,6 +149,9 @@ Views.Search = React.createClass({
     this.setState({ filter: value, filteredBars: filtered });
   },
 
+  /**
+   * Display a selected bar.
+   */
   displaySelected: function(bar) {
     return (
       <li key={bar.name}>
@@ -124,6 +164,9 @@ Views.Search = React.createClass({
     );
   },
 
+  /**
+   * Display an unselected bar.
+   */
   displayUnselected: function(bar) {
     return (
       <li key={bar.name}>
@@ -135,20 +178,9 @@ Views.Search = React.createClass({
       </li>
     );
   },
-
-  displayAllUnselected: function() {
-    if(this.state.filteredBars.length > 0) {
-      return (
-        <div>
-          <h2>Search results:</h2>
-          <ul className="list-unstyled">
-            {this.state.filteredBars.map(this.displayUnselected)}
-          </ul>
-        </div>
-      );
-    }
-  },
-
+  /**
+   * Display the selected bars.
+   */
   displayAllSelected: function() {
     if(this.state.selectedBars.length > 0) {
       return (
@@ -162,6 +194,26 @@ Views.Search = React.createClass({
     }
   },
 
+
+  /**
+   * Display the search results.
+   */
+  displayAllUnselected: function() {
+    if(this.state.filteredBars.length > 0) {
+      return (
+        <div>
+          <h2>Search results:</h2>
+          <ul className="list-unstyled">
+            {this.state.filteredBars.map(this.displayUnselected)}
+          </ul>
+        </div>
+      );
+    }
+  },
+
+  /**
+   * Render the search component.
+   */
   render: function() {
     return (
       <div className="container-fluid top-level">

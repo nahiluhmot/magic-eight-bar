@@ -2,37 +2,55 @@
 
 var Views = Views || {};
 
-var Tabs = Tabs || {
-  Home: "/",
-  About: "/about",
-  Legal: "/legal",
-  Contact: "/contact"
-};
-
+/**
+ * This immutable class renders the navbar for the appication.
+ */
 Views.Nav = React.createClass({
+  /**
+   * Set the propTypes for a statically-typed component.
+   */
+  propTypes: {
+    // The active tab in the navbar.
+    active: React.PropTypes.string.isRequired
+  },
+
+  /**
+   * This object is a mapping of the navbar text to which route they should go
+   * to.
+   */
+  tabs: {
+    Home: "/",
+    About: "/about",
+    Legal: "/legal",
+    Contact: "/contact"
+  },
+
+  /**
+   * When a link is clicked in the navbar, tell Aviator which route to render.
+   */
   handleClick: function(key) {
+    var component = this;
     return function(e) {
       e.preventDefault();
-      Aviator.navigate(Tabs[key]);
+      Aviator.navigate(component.tabs[key]);
     };
   },
 
+  /**
+   * Render the given key. If the key is active, set the correct CSS class for
+   * the list element.
+   */
   renderKey: function(key) {
-    if (this.props.active == key) {
-      return (
-        <li key={key} className="active">
-          <a href={Tabs[key]} onClick={this.handleClick(key)}>{key}</a>
-        </li>
-      );
-    } else {
-      return (
-        <li key={key}>
-          <a href={Tabs[key]} onClick={this.handleClick(key)}>{key}</a>
-        </li>
-      );
-    }
+    return (
+      <li key={key} className={(this.props.active === key) ? 'active' : null}>
+        <a href={this.tabs[key]} onClick={this.handleClick(key)}>{key}</a>
+      </li>
+    );
   },
 
+  /**
+   * Render the navbar.
+   */
   render: function() {
     return (
       <nav className="navbar navbar-default navbar-fixed-top">
@@ -47,7 +65,7 @@ Views.Nav = React.createClass({
 
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
-              {Object.keys(Tabs).map(this.renderKey)}
+              {Object.keys(this.tabs).map(this.renderKey)}
             </ul>
           </div>
         </div>

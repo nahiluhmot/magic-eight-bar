@@ -2,7 +2,13 @@
 
 var Views = Views || {};
 
+/**
+ * This component handles logic for the '/legal' route.
+ */
 Views.Legal = React.createClass({
+  /**
+   * Render the legal page.
+   */
   render: function() {
     return (
       <div className="container-fluid fix-margin top-level">

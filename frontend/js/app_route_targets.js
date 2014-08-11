@@ -1,27 +1,50 @@
+/**
+ * This class holds the logic for mounting/unmounting React components based on
+ * the URL.
+ */
 var AppRouteTargets = function() {};
 
 AppRouteTargets.prototype = {
-  'home': function(request, options) {
+  /**
+   * Go to the home page.
+   */
+  home: function(request, options) {
     this.mount('Home', Views.Home());
   },
 
-  'about': function(request, options) {
+  /**
+   * Go to the about page.
+   */
+  about: function(request, options) {
     this.mount('About', Views.About());
   },
 
-  'contact': function(request, options) {
+  /**
+   * Go to the contact page.
+   */
+  contact: function(request, options) {
     this.mount('Contact', Views.Contact());
   },
 
-  'legal': function(request, options) {
+  /**
+   * Go to the legal page.
+   */
+  legal: function(request, options) {
     this.mount('Legal', Views.Legal());
   },
 
-  'results': function(request, options) {
+  /**
+   * Go to the results page.
+   */
+  results: function(request, options) {
     this.mount('Home', Views.Results());
   },
 
-  'mount': function(active, component) {
+  /**
+   * Mount the given component, and set the navbar active at the specified
+   * tab.
+   */
+  mount: function(active, component) {
     React.unmountComponentAtNode(contentNode);
     React.renderComponent(component, contentNode);
 
