@@ -2,6 +2,7 @@
 module GooglePlacesService
   module_function
 
+  # Save all of the bars given by the Google Places API.
   def save_bars
     if ENV['GOOGLE_PLACES_API_KEY'].nil?
       raise "Please set ENV['GOOGLE_PLACES_API_KEY'] to run this code"
@@ -10,6 +11,7 @@ module GooglePlacesService
     end
   end
 
+  # Save a single bar.
   def save_bar(bar)
     Bar.create!(
       name: bar.name,
@@ -24,18 +26,22 @@ module GooglePlacesService
     logger.warn("Could not create bar (#{bar}) due to: #{ex}")
   end
 
+  # Get all of the bars with their info.
   def bars_with_info
     bars.lazy.map { |bar| client.details(placeid: bar.place_id) }
   end
 
+  # Retrieve 200 bars from boston.
   def bars
     client.search.radar('42.3581,-71.0636', radius: 5000, types: 'bar')
   end
 
+  # The rails logger.
   def logger
     Rails.logger
   end
 
+  # This is the client that interacts with the Google Places API
   def client
     @client ||= PlacesAPI.new(ENV['GOOGLE_PLACES_API_KEY'])
   end

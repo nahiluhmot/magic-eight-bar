@@ -1,6 +1,20 @@
 # This controller handles user lifecycle.
 class UsersController < ApplicationController
   # Create a new user.
+  #
+  # Sample:
+  #   Request:
+  #     path: /api/users/
+  #     method: POST
+  #     params: {}
+  #   Response:
+  #     content: application/json
+  #     status: 200
+  #     body:
+  #       {
+  #         "id": 30,
+  #         "session": "79242894734700608109366522220280"
+  #       }
   def create
     logger.debug('Creating new user')
     user = User.create!
@@ -13,6 +27,17 @@ class UsersController < ApplicationController
   end
 
   # Test if the logged in user is valid.
+  #
+  # Sample:
+  #   Request:
+  #     path: /api/users/valid
+  #     method: GET
+  #     params: {}
+  #     cookies:
+  #       id: 79242894734700608109366522220280
+  #   Response:
+  #     content: application/json
+  #     status: 200
   def valid?
     logger.debug("Testing if user with cookie #{cookies[:id]} is a valid user")
     if user = User.where(session: cookies[:id]).first
