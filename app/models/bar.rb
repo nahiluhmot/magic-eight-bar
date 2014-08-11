@@ -10,6 +10,7 @@
 #  updated_at :datetime
 #  lat        :decimal(11, 8)
 #  lon        :decimal(11, 8)
+#  website    :string(255)
 #
 
 class Bar < ActiveRecord::Base

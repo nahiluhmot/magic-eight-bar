@@ -56,7 +56,12 @@ Views.Results = React.createClass({
   renderHeader: function() {
     return (
       <div className="row text-center">
-        <h3>{this.state.bar.name}</h3>
+        <h3>
+          <a href={this.state.bar.website} target="_blank">
+            {this.state.bar.name}
+          </a>
+        </h3>
+        <p className="lead">{this.state.bar.address}</p>
       </div>
     );
   },

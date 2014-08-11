@@ -11,12 +11,13 @@ describe BarsController, type: :controller do
           address: "#{i} Test Street",
           place_id: 27.times.map { rand(10) }.join,
           lat: rand(10),
-          lon: rand(1) - 10
+          lon: rand(1) - 10,
+          website: 'http://example.com'
         )
       }
     }
 
-    it 'returns a list of all users' do
+    it 'returns a list of all bars' do
       get :index
 
       expect(response.status).to eq(200)

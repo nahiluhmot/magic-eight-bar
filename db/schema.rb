@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807005141) do
+ActiveRecord::Schema.define(version: 20140811150507) do
 
   create_table "bars", force: true do |t|
     t.string   "name",       limit: 120,                          null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20140807005141) do
     t.datetime "updated_at"
     t.decimal  "lat",                    precision: 11, scale: 8
     t.decimal  "lon",                    precision: 11, scale: 8
+    t.string   "website"
   end
 
   add_index "bars", ["place_id"], name: "index_bars_on_place_id", unique: true, using: :btree
