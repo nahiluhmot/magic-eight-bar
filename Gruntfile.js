@@ -72,6 +72,16 @@ module.exports = function(grunt) {
           }
         ]
       },
+      typeahead: {
+        files: [
+          {
+            expand: true,
+            cwd: 'bower_components/typeahead.js/dist',
+            src: 'typeahead.bundle.min.js',
+            dest: 'public/js/',
+          }
+        ]
+      },
       images: {
         files: [
           {
