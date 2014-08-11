@@ -51,7 +51,7 @@ production:
   adapter: mysql2
   encoding: utf8
   pool: 5
-  host: magic-eight-bar-db.cfauwynhwom0.us-west-2.rds.amazonaws.com
+  host: db.magic8.bar
   port: 3306
   database: magic-eight-bar_production
   username: root
