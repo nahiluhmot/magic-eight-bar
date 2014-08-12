@@ -36,14 +36,40 @@ Views.Results = React.createClass({
   },
 
   handleClick: function(rating) {
-    var component = this;
+    var component = this,
+        success;
+
+    if(rating === 1) {
+      success = function() {
+        var bar = component.state.bar;
+        console.dir(bar);
+
+        component.setState({
+          helpText: (
+            <p className="text-center lead">
+              Glad we could help! Visit&nbsp;
+              <a href={bar.website} target="_blank">
+                {bar.name}'s website
+              </a>? Get&nbsp;
+              <a href={"https://maps.google.com?daddr=" + encodeURIComponent(bar.address)}
+                 target="_blank">
+                directions
+              </a>?
+            </p>
+          )
+        });
+      }
+    } else {
+      success = component.getNextPrediction;
+    }
 
     return (function(e) {
+      var bar = component.state.bar;
       e.preventDefault();
       Reviews.create({
         bar: component.state.bar,
         rating: rating,
-        success: component.getNextPrediction,
+        success: success,
         error: function() {
           component.setState({
             helpText: "Error communicating with server, please try again later"
@@ -69,18 +95,6 @@ Views.Results = React.createClass({
     }
   },
 
-  renderHelpText: function() {
-    if(this.state.helpText) {
-      return (
-        <div className="row">
-          <div className="col-lg-12">
-            {this.state.helpText}
-          </div>
-        </div>
-      );
-    }
-  },
-
   renderMap: function() {
     if(this.state.map) {
       return (
@@ -94,36 +108,46 @@ Views.Results = React.createClass({
   },
 
   renderButtons: function() {
-    return (
-      <div className="row text-center">
-        <div className="col-sm-4 pull-left">
-          <a style={{ color: '#c0392b' }}
-             className="lead"
-             href="/reviews"
-             onClick={this.handleClick(-1)}>
-            Very Doubtful
-          </a>
+    if(this.state.helpText) {
+      return (
+        <div className="row">
+          <div className="col-lg-12">
+            {this.state.helpText}
+          </div>
         </div>
+      );
+    } else {
+      return (
+        <div className="row text-center">
+          <div className="col-sm-4 pull-left">
+            <a style={{ color: '#c0392b' }}
+               className="lead"
+               href="/reviews"
+               onClick={this.handleClick(-1)}>
+              Very Doubtful
+            </a>
+          </div>
 
-        <div className="col-sm-4">
-          <a style={{ color: '#f1c40f' }}
-             className="lead"
-             href="/reviews"
-             onClick={this.handleClick(0)}>
-            Maybe Later
-          </a>
-        </div>
+          <div className="col-sm-4">
+            <a style={{ color: '#f1c40f' }}
+               className="lead"
+               href="/reviews"
+               onClick={this.handleClick(0)}>
+              Maybe Later
+            </a>
+          </div>
 
-        <div className="col-sm-4 pull-right">
-          <a style={{ color: '#27ae60' }}
-             className="lead"
-             href="/reviews"
-             onClick={this.handleClick(1)}>
-            It Is Certain
-          </a>
+          <div className="col-sm-4 pull-right">
+            <a style={{ color: '#27ae60' }}
+               className="lead"
+               href="/reviews"
+               onClick={this.handleClick(1)}>
+              It Is Certain
+            </a>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   },
 
   render: function() {
@@ -131,7 +155,6 @@ Views.Results = React.createClass({
       <div className="container-fluid top-level fix-margin">
 
         {this.renderHeader()}
-        {this.renderHelpText()}
         {this.renderMap()}
 
         <br />
