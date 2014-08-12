@@ -25,11 +25,11 @@ The server is written in Ruby on Rails, and communicates via [JSON](http://en.wi
   - `libmysqldevclient (5.*.*)`
 - Ruby Gems:
   - `bundler (1.6.3)`
-  - See [`Gemfile.lock`](#gemfile-lock)
+  - See `Gemfile.lock`
 - Node Modules:
   - `bower (1.3.9)`
   - `grunt (0.4.5)`
-  - See [`package.json`](#package-json) and [`bower.json`](#bower-json) for the frontend and backend dependencies, respectively.
+  - See `package.json` and `bower.json` for the frontend and backend dependencies, respectively.
 
 ## Development
 
@@ -123,7 +123,7 @@ It has the following subdirectories:
  `/app/controllers` | HTTP controllers. Each method of these classes corresponds directly to an HTTP route, defined in `config/routes.rb`. These classes usually query the database to produce the HTTP responses.
  `/app/services`    | Miscellanous services that contain business logic to drive the application.
 
- ## Frontend
+## Frontend
 
  The frontend is a Single-page-application that uses [`Aviator`](https://github.com/swipely/aviator) for routing and [`React`](https://github.com/facebook/react) for rendering views.
  The entire application lives in `/frontend/`, and it has the following subdirectories:
