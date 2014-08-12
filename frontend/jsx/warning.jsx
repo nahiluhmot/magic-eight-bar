@@ -23,9 +23,17 @@ Views.Warning = React.createClass({
   createUser: function() {
     var component = this;
     Users.create({
-      error: function() { $('#warningModal').modal('hide');  },
-      success: function() { $('#warningModal').modal('hide'); }
+      error: component.hideModal,
+      success: component.hideModal
     });
+  },
+
+  /**
+   * Hide the modal this forces an Aviator reload.
+   */
+  hideModal: function() {
+    $('#warningModal').modal('hide');
+    Aviator.navigate('/');
   },
 
   /**
