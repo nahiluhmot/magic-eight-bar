@@ -58,15 +58,14 @@ Views.Search = React.createClass({
 
     return function(e) {
       var selected = component.state.selectedBars,
-          filtered = component.state.filteredBars;
-      selected.unshift(bar);
-
-      component.setState({
-        filteredBars: filtered.filter(function(thisBar) {
-          return thisBar !== bar;
-        }),
-      });
+          filtered = component.state.filteredBars,
+          input    = document.getElementById('searchInput');
+      selected.push(bar);
       e.preventDefault();
+
+      input.value = '';
+      input.focus();
+      component.setState({ filteredBars: [] });
     };
   },
 
@@ -79,6 +78,8 @@ Views.Search = React.createClass({
     return function(e) {
       var filtered = component.state.filteredBars;
 
+      e.preventDefault();
+
       if(bar.name.toLowerCase().search(component.state.filter) !== -1) {
         filtered.unshift(bar);
       }
@@ -88,8 +89,6 @@ Views.Search = React.createClass({
           return thisBar.name !== bar.name;
         })
       });
-
-      e.preventDefault();
     };
   },
 
@@ -156,7 +155,7 @@ Views.Search = React.createClass({
     return (
       <li key={bar.name}>
         <p className='lead'>
-          <a href='#' onClick={this.removeBar(bar)}>
+          <a style={{color: 'green' }} href='#' onClick={this.removeBar(bar)}>
             - {bar.name}
           </a>
         </p>
@@ -178,33 +177,17 @@ Views.Search = React.createClass({
       </li>
     );
   },
-  /**
-   * Display the selected bars.
-   */
-  displayAllSelected: function() {
-    if(this.state.selectedBars.length > 0) {
-      return (
-        <div>
-          <h2>Your list:</h2>
-          <ul className="list-unstyled">
-            {this.state.selectedBars.map(this.displaySelected)}
-          </ul>
-        </div>
-      );
-    }
-  },
 
+  displaySearchResults: function() {
+    var state = this.state;
 
-  /**
-   * Display the search results.
-   */
-  displayAllUnselected: function() {
-    if(this.state.filteredBars.length > 0) {
+    if((state.selectedBars.length > 0) || (state.filteredBars.length > 0)) {
       return (
-        <div>
-          <h2>Search results:</h2>
+        <div className="row">
+          <h2>Search resuts:</h2>
           <ul className="list-unstyled">
-            {this.state.filteredBars.map(this.displayUnselected)}
+            {state.selectedBars.map(this.displaySelected)}
+            {state.filteredBars.map(this.displayUnselected)}
           </ul>
         </div>
       );
@@ -242,14 +225,8 @@ Views.Search = React.createClass({
           <p className="lead text-center">{this.state.helpText}</p>
         </div>
 
-        <div id="post-search" className="row">
-          <div className="col-lg-6">
-            {this.displayAllUnselected()}
-          </div>
-
-          <div className="col-lg-6 text-right">
-            {this.displayAllSelected()}
-          </div>
+        <div id="post-search">
+          {this.displaySearchResults()}
         </div>
       </div>
     );
