@@ -27,7 +27,7 @@ Views.Results = React.createClass({
             id: 'prediction-map',
             lat: Number(bar.lat),
             lon: Number(bar.lon),
-            style: { height: '500px' },
+            style: { height: '500px', width: '100%', display: 'block', margin: 'auto' },
             marker: bar.name
           })
         });
@@ -58,6 +58,7 @@ Views.Results = React.createClass({
       return (
         <div className="row text-center">
           <h3>
+            Signs point to: &nbsp;
             <a href={this.state.bar.website} target="_blank">
               {this.state.bar.name}
             </a>
@@ -95,29 +96,31 @@ Views.Results = React.createClass({
   renderButtons: function() {
     return (
       <div className="row text-center">
-        <div className="col-sm-4">
-          <button href="/reviews"
-                  className="btn btn-lg btn-danger"
-                  onClick={this.handleClick(-1)}>
-            Nah
-          </button>
+        <div className="col-sm-4 pull-left">
+          <a style={{ color: '#c0392b' }}
+             className="lead"
+             href="/reviews"
+             onClick={this.handleClick(-1)}>
+            Very Doubtful
+          </a>
         </div>
 
         <div className="col-sm-4">
-          <button href="/reviews"
-                  className="btn btn-lg btn-warning"
-                  style={{ background: "#e6a62a", borderColor: "#e6a62a" }}
-                  onClick={this.handleClick(0)}>
-            Skip
-          </button>
+          <a style={{ color: '#f1c40f' }}
+             className="lead"
+             href="/reviews"
+             onClick={this.handleClick(0)}>
+            Maybe Later
+          </a>
         </div>
 
-        <div className="col-sm-4">
-          <button href="/reviews"
-                  className="btn btn-lg btn-success"
-                  onClick={this.handleClick(1)}>
-            Yup
-          </button>
+        <div className="col-sm-4 pull-right">
+          <a style={{ color: '#27ae60' }}
+             className="lead"
+             href="/reviews"
+             onClick={this.handleClick(1)}>
+            It Is Certain
+          </a>
         </div>
       </div>
     );

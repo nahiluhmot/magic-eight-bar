@@ -155,7 +155,7 @@ Views.Search = React.createClass({
     return (
       <li key={bar.name}>
         <p className='lead'>
-          <a style={{color: 'green' }} href='#' onClick={this.removeBar(bar)}>
+          <a style={{color: '#27ae60' }} href='#' onClick={this.removeBar(bar)}>
             - {bar.name}
           </a>
         </p>
