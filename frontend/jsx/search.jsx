@@ -65,7 +65,7 @@ Views.Search = React.createClass({
 
       input.value = '';
       input.focus();
-      component.setState({ filteredBars: [] });
+      component.setState({ filteredBars: [], filter: '' });
     };
   },
 

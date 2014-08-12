@@ -14,7 +14,7 @@ Views.Home = React.createClass({
     return (
       <div className="container-fixed">
         <div className="jumbotron text-center fix-margin">
-          <h1 className="push-down">Drink, don't think.</h1>
+          <h1 className="push-down">We think. You drink.</h1>
           <p className="lead">
             Use Magic 8 Bar to explore new bars in Boston.
           </p>
