@@ -62,7 +62,7 @@ class ReviewsController < ApplicationController
     end
   rescue => ex
     logger.error("Could not create review due to #{ex.class}: #{ex.message}")
-    render stauts: 400, json: ex.message
+    render status: 400, json: ex.message
   end
 
   private
