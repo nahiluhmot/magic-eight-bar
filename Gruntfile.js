@@ -82,6 +82,16 @@ module.exports = function(grunt) {
           }
         ]
       },
+      icons: {
+        files: [
+          {
+            expand: true,
+            cwd: 'frontend/img/',
+            src: '*.ico',
+            dest: 'public/'
+          }
+        ]
+      },
       reqwest: {
         files: [
           {
