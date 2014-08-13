@@ -35,46 +35,36 @@ Views.Results = React.createClass({
     });
   },
 
+  displaySuccess: function() {
+    var bar = this.state.bar;
+
+    this.setState({
+      helpText: (
+        <p className="text-center lead">
+          Glad we could help! Visit&nbsp;
+          <a href={bar.website} target="_blank">
+            {bar.name}'s website
+          </a>? Get&nbsp;
+          <a href={"https://maps.google.com?daddr=" + encodeURIComponent(bar.address)}
+             target="_blank">
+            directions
+          </a>?
+        </p>
+      )
+    });
+  },
+
   handleClick: function(rating) {
     var component = this,
-        success;
-
-    if(rating === 1) {
-      success = function() {
-        var bar = component.state.bar;
-        console.dir(bar);
-
-        component.setState({
-          helpText: (
-            <p className="text-center lead">
-              Glad we could help! Visit&nbsp;
-              <a href={bar.website} target="_blank">
-                {bar.name}'s website
-              </a>? Get&nbsp;
-              <a href={"https://maps.google.com?daddr=" + encodeURIComponent(bar.address)}
-                 target="_blank">
-                directions
-              </a>?
-            </p>
-          )
-        });
-      }
-    } else {
-      success = component.getNextPrediction;
-    }
+        success = (rating === 1) ? this.displaySuccess : this.getNextPrediction;
 
     return (function(e) {
-      var bar = component.state.bar;
       e.preventDefault();
+
       Reviews.create({
         bar: component.state.bar,
         rating: rating,
-        success: success,
-        error: function() {
-          component.setState({
-            helpText: "Error communicating with server, please try again later"
-          });
-        }
+        success: success
       });
     });
   },
