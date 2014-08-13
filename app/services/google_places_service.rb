@@ -2,6 +2,10 @@
 module GooglePlacesService
   module_function
 
+  # Global list of coordinates for places around Boston.
+  NORTH = BigDecimal.new('42.358084')
+  WEST = BigDecimal.new('-71.063600')
+
   # Save all of the bars given by the Google Places API.
   def save_bars
     if ENV['GOOGLE_PLACES_API_KEY'].nil?
@@ -32,8 +36,20 @@ module GooglePlacesService
   end
 
   # Retrieve 200 bars from boston.
-  def bars
-    client.search.radar('42.3581,-71.0636', radius: 5000, types: 'bar')
+  def bars(&block)
+    return enum_for(:bars) if block.nil?
+
+    range = [
+      BigDecimal.new('0.025'),
+      BigDecimal.new('0'),
+      BigDecimal.new('-0.025')
+    ]
+    range.each do |delta_north|
+      range.each do |delta_west|
+        coord = [NORTH + delta_north, WEST + delta_west].join(',')
+        client.search.radar(coord, radius: 2500, types: 'bar').each(&block)
+      end
+    end
   end
 
   # The rails logger.
