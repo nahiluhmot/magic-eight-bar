@@ -54,8 +54,14 @@ class ReviewsController < ApplicationController
       rating = params[:rating].to_i
 
       if [-1, 0, 1].include?(rating)
-        review = Review.create!(params.permit(:user_id, :bar_id, :rating))
-        render status: 201, json: review.attributes.to_json
+        if review = Review.where(params.permit(:user_id, :bar_id)).first
+          review.rating = rating
+          review.save!
+          render status: 201, json: review.attributes.to_json
+        else
+          review = Review.create!(params.permit(:user_id, :bar_id, :rating))
+          render status: 201, json: review.attributes.to_json
+        end
       else
         render status: 400, body: "Invalid rating: #{rating}"
       end
