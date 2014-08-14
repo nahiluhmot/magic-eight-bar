@@ -21,19 +21,16 @@ Views.Warning = React.createClass({
    * Create a new user, hiding the modal on completion.
    */
   createUser: function() {
-    var component = this;
-    Users.create({
-      error: component.hideModal,
-      success: component.hideModal
-    });
+    Users.create({ success: this.hideModal });
   },
 
   /**
    * Hide the modal this forces an Aviator reload.
    */
   hideModal: function() {
-    $('#warningModal').modal('hide');
-    Aviator.navigate('/');
+    $(this.getDOMNode()).modal('hide');
+    $(this.getDOMNode()).hide();
+    window.location.reload();
   },
 
   /**
@@ -49,12 +46,14 @@ Views.Warning = React.createClass({
    * page.
    */
   componentDidMount: function() {
+    var component = this;
+
     if(this.cookieIsSet()) {
       Users.valid({
-        error: function() { $('#warningModal').modal('show') }
+        error: function() { $(component.getDOMNode()).modal('show') }
       });
     } else {
-      $('#warningModal').modal('show');
+      $(component.getDOMNode()).modal('show');
     }
   },
 
