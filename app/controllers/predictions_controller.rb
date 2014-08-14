@@ -26,9 +26,8 @@ class PredictionsController < ApplicationController
   #       }
   def next_prediction
     if user = User.where(session: cookies[:id]).first
-      service = PredictionsService.new(user.id)
-      bar = service.get_prediction
-      bar ||= Bar.where.not(id: service.reviews.pluck(:bar_id)).to_a.sample
+      bar_ids = Review.where(user_id: user.id, rating: [-1, 1]).pluck(:bar_id)
+      bar = Bar.where.not(id: bar_ids).to_a.sample
 
       render status: 200, json: bar.attributes.to_json
     else
