@@ -40,20 +40,20 @@ Views.Warning = React.createClass({
     window.location.href = 'http://google.com';
   },
 
+  showModal: function() {
+    $(this.getDOMNode()).modal({ backdrop: 'static', keyboard: false });
+  },
+
   /**
    * After the component mounts, test if there is a valid logged in user. If
    * there is, the modal will remain invisible. Otherwise, it will show on the
    * page.
    */
   componentDidMount: function() {
-    var component = this;
-
     if(this.cookieIsSet()) {
-      Users.valid({
-        error: function() { $(component.getDOMNode()).modal('show') }
-      });
+      Users.valid({ error: this.showModal });
     } else {
-      $(component.getDOMNode()).modal('show');
+      this.showModal();
     }
   },
 
