@@ -8,29 +8,10 @@ var Views = Views || {};
  */
 Views.Warning = React.createClass({
   /**
-   * Test if the cookie is set.
-   */
-  cookieIsSet: function() {
-    var sessionId = Utils.getCookies()['id'];
-
-    return (typeof sessionId === 'string') &&
-           (sessionId.length > 0);
-  },
-
-  /**
    * Create a new user, hiding the modal on completion.
    */
   createUser: function() {
     Users.create({ success: this.hideModal });
-  },
-
-  /**
-   * Hide the modal this forces an Aviator reload.
-   */
-  hideModal: function() {
-    $(this.getDOMNode()).modal('hide');
-    $(this.getDOMNode()).hide();
-    window.location.reload();
   },
 
   /**
@@ -40,8 +21,20 @@ Views.Warning = React.createClass({
     window.location.href = 'http://google.com';
   },
 
+  /**
+   * Render the modal.
+   */
   showModal: function() {
-    $(this.getDOMNode()).modal({ backdrop: 'static', keyboard: false });
+    $(this.getDOMNode()).on('shown.bs.modal', this.forceUpdate).modal({
+      backdrop: 'static', keyboard: false
+    });
+  },
+
+  /**
+   * Hide the modal.
+   */
+  hideModal: function() {
+    $(this.getDOMNode()).on('hidden.bs.modal', this.forceUpdate).modal('hide');
   },
 
   /**
@@ -50,11 +43,7 @@ Views.Warning = React.createClass({
    * page.
    */
   componentDidMount: function() {
-    if(this.cookieIsSet()) {
-      Users.valid({ error: this.showModal });
-    } else {
-      this.showModal();
-    }
+    Users.valid({ error: this.showModal });
   },
 
   /**
