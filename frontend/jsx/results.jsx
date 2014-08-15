@@ -2,22 +2,31 @@
 
 var Views = Views || {};
 
+/**
+ * This view handles the results page.
+ */
 Views.Results = React.createClass({
+  /**
+   * Initially, there is no bar.
+   */
   getInitialState: function() {
     return { bar: {} };
   },
 
-  componentWillMount: function() {
+  /**
+   * Get the next prediction after the component mounts.
+   */
+  componentDidMount: function() {
     this.getNextPrediction();
   },
 
+  /**
+   * Get the next prediction, updating the state upon success.
+   */
   getNextPrediction: function() {
     var component = this;
 
     Predictions.next({
-      error: function() {
-        console.log('Error getting next prediction');
-      },
       success: function(bar) {
         component.setState({ map: null });
         component.setState({
@@ -69,41 +78,40 @@ Views.Results = React.createClass({
     });
   },
 
+  /**
+   * Render the header.
+   */
   renderHeader: function() {
-    if(this.state.bar) {
+    var bar = this.state.bar;
+    if(bar) {
       return (
         <div className="row text-center">
           <h3>
-            Signs point to: &nbsp;
-            <a href={this.state.bar.website} target="_blank">
-              {this.state.bar.name}
-            </a>
+            Signs point to: <a href={bar.website} target="_blank">{bar.name}</a>
           </h3>
-          <p className="lead">{this.state.bar.address}</p>
+          <p className="lead">{bar.address}</p>
         </div>
       );
     }
   },
 
+  /**
+   * Render the map.
+   */
   renderMap: function() {
     if(this.state.map) {
-      return (
-        <div className="row">
-          <div className="col-lg-12">
-            {this.state.map}
-          </div>
-        </div>
-      );
+      return (<div className="row">{this.state.map}</div>);
     }
   },
 
+  /**
+   * Render the buttons or help text.
+   */
   renderButtons: function() {
     if(this.state.helpText) {
       return (
         <div className="row">
-          <div className="col-lg-12">
-            {this.state.helpText}
-          </div>
+          {this.state.helpText}
         </div>
       );
     } else {
@@ -140,6 +148,9 @@ Views.Results = React.createClass({
     }
   },
 
+  /**
+   * Render the results page.
+   */
   render: function() {
     return (
       <div className="container-fluid top-level fix-margin">

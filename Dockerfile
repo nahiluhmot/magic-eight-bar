@@ -11,7 +11,6 @@ RUN cd ruby-2.0.0-p481/ && ./configure --prefix=/usr/local && make && make insta
 RUN gem install bundler
 
 # Install node
-RUN curl -sL https://deb.nodesource.com/setup | bash -
 RUN npm install -g bower grunt-cli
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 RUN rm -rf /tmp

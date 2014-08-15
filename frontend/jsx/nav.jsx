@@ -7,6 +7,22 @@ var Views = Views || {};
  */
 Views.Nav = React.createClass({
   /**
+   * Static properties for Views.Nav.
+   */
+  statics: {
+    /**
+     * This object is a mapping of the navbar text to which route they should go
+     * to.
+     */
+    tabs: {
+      Home: "/",
+      About: "/about",
+      Legal: "/legal",
+      Contact: "/contact"
+    },
+  },
+
+  /**
    * Set the propTypes for a statically-typed component.
    */
   propTypes: {
@@ -15,24 +31,12 @@ Views.Nav = React.createClass({
   },
 
   /**
-   * This object is a mapping of the navbar text to which route they should go
-   * to.
-   */
-  tabs: {
-    Home: "/",
-    About: "/about",
-    Legal: "/legal",
-    Contact: "/contact"
-  },
-
-  /**
    * When a link is clicked in the navbar, tell Aviator which route to render.
    */
   handleClick: function(key) {
-    var component = this;
     return function(e) {
       e.preventDefault();
-      Aviator.navigate(component.tabs[key]);
+      Aviator.navigate(Views.Nav.tabs[key]);
     };
   },
 
@@ -43,7 +47,7 @@ Views.Nav = React.createClass({
   renderKey: function(key) {
     return (
       <li key={key} className={(this.props.active === key) ? 'active' : null}>
-        <a href={this.tabs[key]} onClick={this.handleClick(key)}>{key}</a>
+        <a href={Views.Nav[key]} onClick={this.handleClick(key)}>{key}</a>
       </li>
     );
   },
@@ -65,7 +69,7 @@ Views.Nav = React.createClass({
 
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
-              {Object.keys(this.tabs).map(this.renderKey)}
+              {Object.keys(Views.Nav.tabs).map(this.renderKey)}
             </ul>
           </div>
         </div>
