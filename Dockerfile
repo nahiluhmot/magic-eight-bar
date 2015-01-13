@@ -17,7 +17,7 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 RUN rm -rf /tmp
 
 # Add the application
-RUN useradd magic -p magic
+RUN useradd magic -p magic --create-home --user-group
 ADD . /app
 RUN chown -R magic:magic /app
 USER magic
