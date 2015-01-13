@@ -31,7 +31,9 @@ WORKDIR /app
 RUN npm install
 USER root
 RUN apt-get -y install git
+RUN printf '{ "proxy" : "http://<host>:<port>", "https-proxy" : "http://<host>:<port>" }' > /root/.bowerrc
 RUN git config --global url."https://".insteadOf git://
+RUN git config --global url."https://".insteadOf ssh://
 RUN bower install --allow-root --production
 RUN chown -R magic:magic bower_components/
 RUN grunt
