@@ -30,6 +30,7 @@ RUN bundle install --path=vendor/bunlde --jobs 8
 WORKDIR /app
 RUN npm install
 USER root
+RUN apt-get -y install git
 RUN bower install --allow-root --production
 RUN chown -R magic:magic bower_components/
 RUN grunt
