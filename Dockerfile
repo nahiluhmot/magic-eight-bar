@@ -24,7 +24,7 @@ USER magic
 
 # Build the places_api gem
 WORKDIR /app/gems/places_api
-RUN bundle install --deployment --jobs 8
+RUN bundle install --jobs 8
 
 # Build the node application
 WORKDIR /app
